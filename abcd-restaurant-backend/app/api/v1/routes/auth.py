@@ -33,14 +33,14 @@ async def login(response: Response, login_data: UserLogin, db: AsyncSession = De
         httponly=True,
         max_age=3600,
         expires=3600,
-        samesite="lax",
-        secure=False,
+        samesite="none",
+        secure=True,
     )
-    return {"message": "Successfully logged in", "expires_in": 3600}
+    return {"message": "Successfully logged in", "access_token": access_token, "token_type": "bearer", "expires_in": 3600}
 
 @router.post("/logout")
 async def logout(response: Response):
-    response.delete_cookie(key="access_token", httponly=True, samesite="lax")
+    response.delete_cookie(key="access_token", httponly=True, samesite="none", secure=True)
     return {"message": "Successfully logged out"}
 
 @router.get("/me", response_model=UserResponse)

@@ -71,13 +71,23 @@ export default function LoginPage() {
       
       // Store session expiry (response.expires_in) somewhere if needed, 
       // or rely on a global AuthProvider to manage it.
-      if (response?.data?.expires_in) {
-        localStorage.setItem("session_expires_at", (Date.now() + response.data.expires_in * 1000).toString());
+      const resData = (response as any)?.data || response;
+      if (resData?.access_token) {
+        localStorage.setItem("access_token", resData.access_token);
+      }
+      const expiresIn = resData?.expires_in;
+      if (expiresIn) {
+        localStorage.setItem("session_expires_at", (Date.now() + expiresIn * 1000).toString());
       }
       
       router.push("/");
     } catch (error: any) {
-      toast.error(error.response?.data?.detail || "Invalid email or password");
+      console.error("Login error:", error);
+      const detail = error.response?.data?.detail;
+      const errorMsg = detail || (error.message === "Network Error" 
+        ? "Unable to reach backend. Check your backend status and CORS settings." 
+        : error.message || "Invalid email or password");
+      toast.error(errorMsg);
     } finally {
       setIsLoading(false);
     }

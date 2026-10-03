@@ -15,6 +15,17 @@ export const apiClient = axios.create({
   withCredentials: true,
 });
 
+// Request interceptor to attach bearer token from localStorage
+apiClient.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+});
+
 // Interceptor to handle global errors (e.g., 401 Unauthorized redirect)
 apiClient.interceptors.response.use(
   (response) => {
