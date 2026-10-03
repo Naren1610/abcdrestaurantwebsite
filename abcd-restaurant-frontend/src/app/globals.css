@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Fonts */
+  --font-outfit: var(--font-outfit);
+  --font-playfair-display: var(--font-playfair-display);
+  --font-inter: var(--font-inter);
+  --font-cinzel: var(--font-cinzel);
+  --font-lato: var(--font-lato);
+  --font-poppins: var(--font-poppins);
+
+  /* Brand colors */
+  --color-background: #f9f1e5;
+  --color-brand: #4e121e;
+  --color-brand-tagline: #b89047;
+  --color-hero-text: #6b5f60;
+
+  /* Navigation */
+  --color-nav-text: #2c2627;
+
+  /* Button */
+  --color-btn-text: #ffffff;
+  --color-btn-circle-border: #ffffff66;
+
+  /* Footer */
+  --color-footer-divider: #5716211a;
+  --color-footer-muted: #666666;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Indeterminate progress bar animation for Secure Payment */
+@keyframes progressIndeterminate {
+  0% {
+    transform: translateX(-60%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-60%);
+  }
+}
+
+.animate-progress-indeterminate {
+  animation: progressIndeterminate 2.2s ease-in-out infinite;
+}
+

@@ -1,0 +1,49 @@
+# Antigravity / Gemini
+.agents/
+.brain/
+gemini.md
+commands.md
+
+# Project specific
+gallery-images/
+draft.*
+*.draft
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+build/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python / FastAPI
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+instance/
+.webassets-cache
+.scrapy
+.nox/
+.tox/
+.mypy_cache/
+.ruff_cache/
+*.sqlite3
+*.db
+
+draft/
+
+
+gallary-images/
+abcd-restaurant-backend/context/
+

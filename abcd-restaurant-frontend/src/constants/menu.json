@@ -1,0 +1,866 @@
+{
+  "restaurant": "ABCD Restaurant",
+  "tagline": "American Brand Culturally Desi",
+  "sections": [
+    {
+      "id": "aperitifs-and-appetizers",
+      "title": "Aperitifs & Appetizers",
+      "subcategories": [
+        {
+          "id": "the-imperial-tandoor",
+          "name": "The Imperial Tandoor",
+          "subtitle": "Flame-charred legacies",
+          "items": [
+            {
+              "id": "maharaja-prawns",
+              "name": "Maharaja Prawns",
+              "price": 21.59,
+              "description": "Tiger prawns infused with citrus and House special Tandoori essence, kissed by fire for a perfect balance of heat, aroma, and oceanic sweetness.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "pesto-shrimp-emeraldo",
+              "name": "Pesto Shrimp Emeraldo",
+              "price": 23.59,
+              "description": "Succulent Jumbo Prawns marinated in a vibrant basil pesto, kissed by the tandoor flame for a smoky, aromatic finish.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "royal-seekh-of-kheema",
+              "name": "Royal Seekh of Kheema",
+              "price": 19.59,
+              "description": "Hand-crafted mutton skewers blended with our heirloom spices, cooked over glowing flames to create a delicately smoky, melt-in-mouth experience.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "classic-tandoori-chicken",
+              "name": "Classic Tandoori Chicken",
+              "price": 18.59,
+              "description": "Succulent bone-in chicken infused with a secret heritage spice blend, roasted to tender perfection, with a smoky aroma that lingers in every bite.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "crimson-kashmiri-murgh-tikka",
+              "name": "Crimson Kashmiri Murgh Tikka",
+              "price": 18.59,
+              "description": "Chicken marinated for 24 hours in a rich Kashmiri chili-spice symphony, then flame-seared for a fiery, jewel-toned finish.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "malai-silk-murgh-kebab",
+              "name": "Malai Silk Murgh Kebab",
+              "price": 19.59,
+              "description": "Velvety morsels of chicken enriched with cream, green chili, and cardamom, kissed with subtle smoke, melting on the palate with every bite.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "achaari-charred-wings",
+              "name": "Achaari Charred Wings",
+              "price": 18.59,
+              "description": "Orchard-raised wings marinated in bold pickling spices, crisped over embers to deliver a tangy, smoky, and deeply flavorful bite.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "artisan-ember-paneer",
+              "name": "Artisan Ember Paneer",
+              "price": 17.59,
+              "description": "House-pressed paneer steaks enriched with a medley of spices, charred to perfection with a subtle smoky finish, paired with roasted bell peppers.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "verdant-hariyali-paneer",
+              "name": "Verdant Hariyali Paneer",
+              "price": 18.59,
+              "description": "Paneer enveloped in a vibrant blend of fresh mint, spinach, and toasted spices, offering a bright, herbaceous, and indulgent flavor experience.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "charred-soya-chaap",
+              "name": "Charred Soya Chaap",
+              "price": 17.59,
+              "description": "Tender batons of delhi waala Soya chaap warmly slept in our house special marinade, and then slowly grilled & charred in tandoor to achieve a charred exterior and succulent bite.",
+              "tags": [
+                "veg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dragon-and-spice",
+          "name": "Dragon & Spice",
+          "subtitle": "A vibrant journey blending the bold spices of India with the wok-fired flavors of Chinese",
+          "sections": [
+            {
+              "name": "Soups",
+              "addOns": "Custom House Veggies (+1) / Egg (+2) / Chicken (+3) / Prawn (+4) / Mixed (+5)",
+              "items": [
+                {
+                  "id": "sweet-corn-soup",
+                  "name": "Sweet Corn Soup",
+                  "price": 8.99,
+                  "description": "A comforting Indo-Chinese classic — silky broth with tender sweet corn kernels, gently seasoned with ginger, garlic, and a touch of soy. Add on your choice of protein or veggies to make it a meal.",
+                  "tags": []
+                },
+                {
+                  "id": "tom-yum-soup",
+                  "name": "Tom Yum Soup",
+                  "price": 9.99,
+                  "description": "A bold, aromatic hot & sour Thai-inspired broth infused with lemongrass, galangal, kaffir lime leaves, and fiery chilies — a bright, invigorating bowl with every sip. Add on your choice of protein or veggies.",
+                  "tags": []
+                }
+              ]
+            },
+            {
+              "name": "Appetizers",
+              "items": [
+                {
+                  "id": "veg-manchurian",
+                  "name": "Veg Manchurian",
+                  "price": 14.59,
+                  "description": "Crisp vegetable balls tossed in a mildly spicy soy-garlic sauce.",
+                  "tags": [
+                    "veg"
+                  ]
+                },
+                {
+                  "id": "gobi-manchurian",
+                  "name": "Gobi Manchurian",
+                  "price": 14.59,
+                  "description": "Cauliflower florets fried and coated in tangy Indo-Chinese sauce.",
+                  "tags": [
+                    "veg"
+                  ]
+                },
+                {
+                  "id": "chilli-paneer",
+                  "name": "Chilli Paneer",
+                  "price": 15.99,
+                  "description": "Soft paneer cubes sautéed with capsicum, onion, and tangy chili sauce.",
+                  "tags": [
+                    "veg",
+                    "spicy"
+                  ]
+                },
+                {
+                  "id": "hyderabadi-chicken-65",
+                  "name": "Hyderabadi Chicken 65",
+                  "price": 16.59,
+                  "description": "South-Indian style fried chicken with bold masala and curry leaf tempering.",
+                  "tags": [
+                    "non-veg",
+                    "spicy"
+                  ]
+                },
+                {
+                  "id": "chilli-chicken",
+                  "name": "Chilli Chicken",
+                  "price": 16.59,
+                  "description": "Juicy chicken pieces tossed with bell peppers and spicy Indo-Chinese sauce.",
+                  "tags": [
+                    "non-veg",
+                    "spicy"
+                  ]
+                },
+                {
+                  "id": "chicken-majestic",
+                  "name": "Chicken Majestic",
+                  "price": 17.59,
+                  "description": "Tender chicken cooked with garlic, chili, and light soy sauce.",
+                  "tags": [
+                    "non-veg"
+                  ]
+                },
+                {
+                  "id": "chicken-lollipops-wet",
+                  "name": "Chicken Lollipops (Wet)",
+                  "price": 17.59,
+                  "description": "Crispy chicken wings coated in a glossy, spicy sauce.",
+                  "tags": [
+                    "non-veg"
+                  ]
+                },
+                {
+                  "id": "drums-of-heaven",
+                  "name": "Drums of Heaven",
+                  "price": 17.59,
+                  "description": "Crispy chicken drumettes served with house-made honey-chili glaze.",
+                  "tags": [
+                    "non-veg"
+                  ]
+                },
+                {
+                  "id": "dragon-chicken",
+                  "name": "Dragon Chicken",
+                  "price": 16.99,
+                  "description": "Wok-tossed chicken with chili, garlic, and hint of sesame.",
+                  "tags": [
+                    "non-veg",
+                    "spicy"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "biryanis-and-breads",
+      "title": "Biryanis & Breads",
+      "subcategories": [
+        {
+          "id": "murli-ka-zaiqa",
+          "name": "Murli Ka Zaiqa",
+          "subtitle": "The Royal Tradition",
+          "items": [
+            {
+              "id": "hyderabadi-chicken-dum-biryani",
+              "name": "Hyderabadi Chicken Dum Biryani",
+              "price": 17.59,
+              "description": "Fragrant basmati rice layered with marinated chicken, slow-cooked in the traditional Dum style with exotic herbs and saffron.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "vijayawada-boneless-chicken-biryani",
+              "name": "Vijayawada Boneless Chicken Biryani",
+              "price": 18.59,
+              "description": "Tender boneless chicken marinated in a bold Andhra spice blend, layered over fragrant basmati rice cooked with whole spices, fresh mint, and coriander — rich, fiery, and deeply satisfying.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "hyderabadi-mutton-dum-biryani",
+              "name": "Hyderabadi Mutton Dum Biryani",
+              "price": 19.59,
+              "description": "Tender mutton pieces marinated overnight in yogurt and spices, layered with basmati rice and slow-cooked to perfection.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "vijayawada-style-veg-biryani",
+              "name": "Vijayawada Style Veg Biryani",
+              "price": 18.59,
+              "description": "A medley of fresh vegetables and paneer layered with aromatic basmati rice and cooked with subtle spices.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "hyderabadi-veg-dum-biryani",
+              "name": "Hyderabadi Veg Dum Biryani",
+              "price": 16.59,
+              "description": "A medley of fresh vegetables layered with aromatic basmati rice and dum cooked with subtle spices.",
+              "tags": [
+                "veg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "prelude-plates",
+          "name": "Prelude Plates",
+          "subtitle": "Devouring handcrafted recipes where traditional techniques meet contemporary expression",
+          "items": [
+            {
+              "id": "uff-uff-wings",
+              "name": "Uff Uff Wings",
+              "price": 17.59,
+              "description": "When an enthusiastic Odiyan chilli meets the Spicy Telugu - We say Uff Uff.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "kheema-muttilu",
+              "name": "Kheema Muttilu",
+              "price": 18.99,
+              "description": "Rathnamma's Recipe - Rustic minced meat dumplings with fresh herbs, and spices, pounded together for a rich and savory bite.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "chettinad-mutton-sukka",
+              "name": "Chettinad Mutton Sukka",
+              "price": 18.99,
+              "description": "Our Chef Bala's creation - Slow roasted mutton, tossed in roasted spices, curry leaves, and black pepper in achieving a semi dry, intensely aromatic South Indian Classic.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "mangalorean-pompano-fry",
+              "name": "Mangalorean Pompano Fry",
+              "price": 22.59,
+              "description": "Pompano bathed in a beauty of spices, rested in its peace. Patiently grilled on our well-seasoned Cast-Iron.",
+              "tags": [
+                "non-veg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "artisanal-breads",
+          "name": "Artisanal Breads",
+          "subtitle": "Handcrafted traditional flatbreads from the clay tandoor",
+          "items": [
+            {
+              "id": "plain-naan",
+              "name": "Plain Naan",
+              "price": 3.99,
+              "description": "Fresh and soft clay oven baked bread.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "tandoori-roti",
+              "name": "Tandoori Roti",
+              "price": 3.99,
+              "description": "Whole wheat bread baked in tandoor.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "butter-naan",
+              "name": "Butter Naan",
+              "price": 4.59,
+              "description": "Layered flatbread slathered in butter.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "laccha-paratha",
+              "name": "Laccha Paratha",
+              "price": 5.59,
+              "description": "Flaky, multi-layered whole wheat bread.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "garlic-naan",
+              "name": "Garlic Naan",
+              "price": 4.99,
+              "description": "Infused with chopped garlic and butter.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "paneer-paratha",
+              "name": "Paneer Paratha",
+              "price": 5.59,
+              "description": "Stuffed with spiced Indian cottage cheese.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "chilly-garlic-naan",
+              "name": "Chilly Garlic Naan",
+              "price": 5.59,
+              "description": "Topped with spicy green chilies and garlic.",
+              "tags": [
+                "veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "cheese-naan",
+              "name": "Cheese Naan",
+              "price": 5.59,
+              "description": "Stuffed generously with melted cheese.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "chilly-cheese-naan",
+              "name": "Chilly Cheese Naan",
+              "price": 6.59,
+              "description": "Naan stuffed with spicy green chilies and melted cheese.",
+              "tags": [
+                "veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "bhature",
+              "name": "Bhature",
+              "price": 4.59,
+              "description": "Fluffy deep-fried leavened sourdough bread.",
+              "tags": [
+                "veg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "curry-crafts-and-chinese-wok-creations",
+      "title": "Curry Crafts & Chinese Wok Creations",
+      "subcategories": [
+        {
+          "id": "anantha-shakhahaari",
+          "name": "Anantha Shakhahaari",
+          "subtitle": "Vegetarian Elegance",
+          "items": [
+            {
+              "id": "makhanwala-paneer-butter-masala",
+              "name": "Makhanwala Paneer Butter Masala",
+              "price": 16.99,
+              "description": "Soft paneer cubes enveloped in a luscious tomato-butter sauce, finished with cream and delicate Indian spices.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "paneer-tikka-masala",
+              "name": "Paneer Tikka Masala",
+              "price": 17.99,
+              "description": "Tandoor Char-grilled paneer simmered in a fragrant onion-tomato masala, kissed with subtle smoke aroma.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "paneer-lababdar",
+              "name": "Paneer Lababdar",
+              "price": 16.99,
+              "description": "Paneer cubes in a rich velvety, buttery gravy with aromatic spices and a hint of cream.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "palak-paneer",
+              "name": "Palak Paneer",
+              "price": 16.99,
+              "description": "Fresh spinach purée cooked with paneer cubes, lightly tempered with garlic and cumin.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "malai-kofta",
+              "name": "Malai Kofta",
+              "price": 17.99,
+              "description": "Pillowy dumplings of paneer and seasonal vegetables, floating in our lovely creamy secret spice infused, ripped tomato gravy.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "sarson-ka-saag",
+              "name": "Sarson Ka Saag",
+              "price": 16.99,
+              "description": "Slow-cooked mustard greens with a balance of spices, rustic and comforting.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "mushroom-do-pyaza",
+              "name": "Mushroom Do Pyaza",
+              "price": 16.99,
+              "description": "Mushrooms sautéed with layers of onions and traditional masala.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "mix-veg-jalfrezi",
+              "name": "Mix Veg Jalfrezi",
+              "price": 16.99,
+              "description": "Seasonal vegetables sautéed with peppers and onions in a tangy tomato masala.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "dal-makhani",
+              "name": "Dal Makhani",
+              "price": 16.99,
+              "description": "Black lentils and kidney beans slow cooked with butter and cream for rich flavor.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "dhaaba-waala-tadka-dal",
+              "name": "Dhaaba Waala Tadka Dal",
+              "price": 15.99,
+              "description": "Yellow lentils tempered with cumin, garlic, and mild spices. This is simple, but taste our recipe and go crazy!",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "punjabi-chole",
+              "name": "Punjabi Chole",
+              "price": 16.99,
+              "description": "Chickpeas cooked with earthy, aromatic masalas to deliver robust and traditional flavor with every bite.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "kadhi-pakora",
+              "name": "Kadhi Pakora",
+              "price": 16.99,
+              "description": "Gram flour fritters simmered in yogurt-based curry with light tempering.",
+              "tags": [
+                "veg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "the-mamsa-rasoi",
+          "name": "The Mamsa Rasoi",
+          "subtitle": "Non-Vegetarian Mastery",
+          "items": [
+            {
+              "id": "rogan-josh",
+              "name": "Rogan Josh",
+              "price": 19.99,
+              "description": "Mutton cooked in yogurt and Kashmiri red chili gravy for gentle warmth.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "laal-maas",
+              "name": "Laal Maas",
+              "price": 19.99,
+              "description": "Traditional fiery mutton curry prepared with secret chillies.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "telangana-dhaawath-mutton-curry",
+              "name": "Telangana Dhaawath Mutton Curry",
+              "price": 19.99,
+              "description": "Rustic, slow-cooked mutton infused with the region's signature bold spices and aromatic all elements.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "munakkaya-mutton",
+              "name": "Munakkaya Mutton",
+              "price": 19.99,
+              "description": "Mutton and drumstick pairs in a highly spiced, hearty gravy, offering layered flavors and depth.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "mutton-vindaloo",
+              "name": "Mutton Vindaloo",
+              "price": 19.99,
+              "description": "Tangy Goan style curry with a gentle heat, balancing spices and vinegar notes for a bold yet refined taste.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "saag-gosht",
+              "name": "Saag Gosht",
+              "price": 19.99,
+              "description": "Succulent mutton slow-cooked with fresh spinach, delivering an earthy, aromatic, and tender curry.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "kheema-matar",
+              "name": "Kheema Matar",
+              "price": 19.99,
+              "description": "Minced mutton cooked with peas in lightly spiced masala.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "goan-prawn-curry",
+              "name": "Goan Prawn Curry",
+              "price": 22.99,
+              "description": "Prawns simmered in coconut-tamarind coastal gravy.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "goan-fish-curry",
+              "name": "Goan Fish Curry",
+              "price": 21.99,
+              "description": "Fresh fish cooked in tangy coconut-based gravy.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "punjabi-dhaaba-waala-anda-masala",
+              "name": "Punjabi Dhaaba Waala Anda Masala",
+              "price": 16.99,
+              "description": "Boiled eggs simmered in light onion-tomato masala.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "delhi-waala-butter-chicken",
+              "name": "Delhi Waala Butter Chicken",
+              "price": 17.99,
+              "description": "Tandoor-roasted chicken in a tomato-butter gravy with mild spices.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "kolhapuri-chicken",
+              "name": "Kolhapuri Chicken",
+              "price": 17.99,
+              "description": "Chicken cooked with lightly roasted Kolhapuri masala.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "chicken-do-pyaza",
+              "name": "Chicken Do Pyaza",
+              "price": 17.99,
+              "description": "Chicken cooked with layers of onions in a simple masala.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "chicken-korma",
+              "name": "Chicken Korma",
+              "price": 17.99,
+              "description": "Chicken in mild yogurt and nut-based sauce.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "chicken-tikka-masala",
+              "name": "Chicken Tikka Masala",
+              "price": 17.99,
+              "description": "Grilled chicken in spiced tomato-onion masala.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "chicken-vindaloo",
+              "name": "Chicken Vindaloo",
+              "price": 17.99,
+              "description": "Spicy and tangy Goan chicken curry.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "andhra-home-made-chicken-curry",
+              "name": "Andhra Home Made Chicken Curry",
+              "price": 17.99,
+              "description": "Bone-in Chicken cooked with regional spices for balanced heat.",
+              "tags": [
+                "non-veg",
+                "spicy"
+              ]
+            },
+            {
+              "id": "ginger-chicken",
+              "name": "Ginger Chicken",
+              "price": 17.99,
+              "description": "Old Hyderabadi waala Chicken simmered in a crazy gravy of fresh ginger, green chili.",
+              "tags": [
+                "non-veg"
+              ]
+            },
+            {
+              "id": "orissa-dhaaba-style-rambha-chicken",
+              "name": "Orissa Dhaaba Style Rambha Chicken",
+              "price": 17.99,
+              "description": "Regional-style chicken curry with secret sauce and spices.",
+              "tags": [
+                "non-veg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "wok-and-fire",
+          "name": "Wok & Fire",
+          "subtitle": "Asian Specialties",
+          "addOns": "Custom House Veggies (+1) / Egg (+2) / Chicken (+3) / Prawn (+4) / Mixed (+5)",
+          "items": [
+            {
+              "id": "wok-fired-soft-noodles",
+              "name": "Wok Fired Soft Noodles",
+              "price": 14.59,
+              "description": "Classic stir-fried noodles with vegetables and light soy seasoning.",
+              "tags": []
+            },
+            {
+              "id": "schezwan-noodles",
+              "name": "Schezwan Noodles",
+              "price": 15.59,
+              "description": "Spicy noodles with a bold, exotic Sichuan peppers schezwan sauce.",
+              "tags": [
+                "spicy"
+              ]
+            },
+            {
+              "id": "singapore-noodles",
+              "name": "Singapore Noodles",
+              "price": 16.59,
+              "description": "Thin rice noodles stir-fried with curry-flavored vegetables and protein of choice.",
+              "tags": []
+            },
+            {
+              "id": "pad-thai",
+              "name": "Pad Thai",
+              "price": 16.59,
+              "description": "Rice noodles tossed with egg, vegetables, and tamarind-infused sauce.",
+              "tags": []
+            },
+            {
+              "id": "flamed-and-tossed-fried-rice",
+              "name": "Flamed & Tossed Fried Rice",
+              "price": 14.59,
+              "description": "Fragrant rice stir-fried with vegetables and house-made seasonings.",
+              "tags": []
+            },
+            {
+              "id": "schezwan-fried-rice",
+              "name": "Schezwan Fried Rice",
+              "price": 15.59,
+              "description": "Lightly spiced rice with a twist of our house-made schezwan sauce.",
+              "tags": [
+                "spicy"
+              ]
+            },
+            {
+              "id": "chilli-garlic-fried-rice",
+              "name": "Chilli Garlic Fried Rice",
+              "price": 15.59,
+              "description": "An amalgamation of our Chilli & garlic into the flame burnt wok with granular rice.",
+              "tags": [
+                "spicy"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "desserts-and-drinks",
+      "title": "Desserts & Drinks",
+      "subcategories": [
+        {
+          "id": "desserts",
+          "name": "Desserts",
+          "subtitle": "Sweet Endings",
+          "items": [
+            {
+              "id": "misti-doi",
+              "name": "Misti Doi",
+              "price": 8.99,
+              "description": "Traditional Bengali sweet yogurt, slow-cooked to caramelized perfection.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "gulab-jamun",
+              "name": "Gulab Jamun",
+              "price": 6.99,
+              "description": "Classic warm golden dumplings resting in rose-scented syrup, served hot.",
+              "tags": [
+                "veg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "drinks",
+          "name": "Drinks",
+          "subtitle": "Refreshing Beverages",
+          "items": [
+            {
+              "id": "mango-lassi",
+              "name": "Mango Lassi",
+              "price": 5.59,
+              "description": "Traditional chilled mango yogurt beverage.",
+              "tags": [
+                "veg"
+              ]
+            },
+            {
+              "id": "thumps-up",
+              "name": "Thumps Up",
+              "price": 3.99,
+              "description": "Classic Indian fizzy cola drink.",
+              "tags": []
+            },
+            {
+              "id": "limca",
+              "name": "Limca",
+              "price": 3.99,
+              "description": "Refreshing lemon-lime Indian soda.",
+              "tags": []
+            },
+            {
+              "id": "jeera",
+              "name": "Jeera",
+              "price": 3.59,
+              "description": "Traditional cumin spiced Indian soda / digestive drink.",
+              "tags": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

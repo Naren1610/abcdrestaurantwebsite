@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Brand colors */
+  --color-brand: #4e121e;
+  --color-brand-tagline: #b89047;
+
+  /* Typography Setup */
+  --font-outfit: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-playfair: var(--font-playfair-display), ui-serif, Georgia, serif;
+  --font-cinzel: var(--font-cinzel), ui-serif, Georgia, serif;
+  --font-inter: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-playfair-display), ui-serif, Georgia, serif;
+
+  /* Theme Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Sidebar Colors */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* Very subtle warm background */
+  --background: #fdfaf6;
+  --foreground: #2c2627;
+  
+  /* Cards are pure white for contrast */
+  --card: #ffffff;
+  --card-foreground: #2c2627;
+  
+  --popover: #ffffff;
+  --popover-foreground: #2c2627;
+  
+  --primary: #4e121e;
+  --primary-foreground: #ffffff;
+  
+  --secondary: #f4eee6;
+  --secondary-foreground: #4e121e;
+  
+  --muted: #f4eee6;
+  --muted-foreground: #736b69;
+  
+  --accent: #f9f1e5;
+  --accent-foreground: #4e121e;
+  
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  
+  --border: #e8dccb;
+  --input: #e8dccb;
+  --ring: #4e121e;
+  
+  /* Modern soft radius */
+  --radius: 0.75rem;
+  
+  /* Sidebar uses a slightly darker warm tone */
+  --sidebar: #f9f1e5;
+  --sidebar-foreground: #4e121e;
+  --sidebar-primary: #4e121e;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0e4d3;
+  --sidebar-accent-foreground: #4e121e;
+  --sidebar-border: #e8dccb;
+  --sidebar-ring: #4e121e;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+}
+/* Reusable Global Brand Toast Styling across project */
+[data-sonner-toaster] [data-sonner-toast] {
+  background-color: #4e121e !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-icon] {
+  color: #ffffff !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-title] {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-description] {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+[data-sonner-toaster] [data-sonner-toast] [data-close-button] {
+  background-color: #4e121e !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}

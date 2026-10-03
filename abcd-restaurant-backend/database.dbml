@@ -1,0 +1,146 @@
+// ABCD Restaurant - Database Schema
+// Format: DBML (Database Markup Language)
+// Docs: https://dbml.dbdiagram.io
+// Last Updated: 2026-10-01
+
+// =============================================
+// AUTH
+// =============================================
+
+Table users {
+  id int [pk, increment]
+  email varchar(255) [unique, not null]
+  hashed_password varchar(255) [not null]
+  role varchar(50) [default: 'staff', note: 'admin | staff']
+  is_active boolean [default: true]
+}
+
+// =============================================
+// MENU
+// =============================================
+
+Table categories {
+  id int [pk, increment]
+  name varchar(100) [unique, not null]
+  subtitle varchar(200)
+  display_order int [default: 0]
+}
+
+Table menu_items {
+  id int [pk, increment]
+  name varchar(200) [not null]
+  description text
+  price float [not null]
+  image_url varchar(500) [note: 'Cloudinary CDN URL']
+  is_veg boolean [default: false]
+  is_spicy boolean [default: false]
+  is_active boolean [default: true]
+  display_order int [default: 0]
+  category_id int [not null, ref: > categories.id]
+}
+
+// =============================================
+// ORDERS
+// =============================================
+
+Table orders {
+  id int [pk, increment]
+  customer_name varchar(200) [not null]
+  customer_email varchar(255) [not null]
+  customer_phone varchar(50) [not null]
+  order_type varchar(50) [not null, note: 'delivery | pickup']
+  address varchar(500) [note: 'Required for delivery only']
+  total_amount float [not null]
+  stripe_session_id varchar(255) [unique]
+  payment_status varchar(50) [default: 'pending', note: 'pending | paid | failed']
+  fulfillment_status varchar(50) [default: 'preparing', note: 'preparing | ready | completed | cancelled']
+  created_at timestamptz [default: `now()`]
+}
+
+Table order_items {
+  id int [pk, increment]
+  order_id int [not null, ref: > orders.id]
+  menu_item_id int [ref: > menu_items.id, note: 'Nullable if item deleted later']
+  item_name_snapshot varchar(200) [not null, note: 'Frozen name at time of order']
+  price_snapshot float [not null, note: 'Frozen price at time of order']
+  quantity int [not null, default: 1]
+}
+
+// =============================================
+// RESERVATIONS
+// =============================================
+
+Table reservations {
+  id int [pk, increment]
+  customer_name varchar(200) [not null]
+  customer_email varchar(255) [not null]
+  customer_phone varchar(50) [not null]
+  reservation_date date [not null]
+  reservation_time time [not null]
+  party_size int [not null]
+  special_requests text
+  status varchar(50) [default: 'pending', note: 'pending | confirmed | cancelled']
+  created_at timestamptz [default: `now()`]
+}
+
+// =============================================
+// CMS - COLLECTIONS
+// =============================================
+
+Table team_members {
+  id int [pk, increment]
+  name varchar(200) [not null]
+  role varchar(200) [not null]
+  bio text
+  image_url varchar(500) [note: 'Cloudinary CDN URL']
+  display_order int [default: 0]
+  is_active boolean [default: true]
+}
+
+Table testimonials {
+  id int [pk, increment]
+  customer_name varchar(200) [not null]
+  rating int [not null, default: 5, note: '1-5']
+  review text [not null]
+  display_order int [default: 0]
+  is_active boolean [default: true]
+}
+
+Table gallery_categories {
+  id int [pk, increment]
+  name varchar(100) [unique, not null]
+  display_order int [default: 0]
+  is_active boolean [default: true]
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+}
+
+Table gallery_images {
+  id int [pk, increment]
+  category_id int [not null, ref: > gallery_categories.id]
+  title varchar(255)
+  image_url varchar(500) [not null, note: 'Cloudinary CDN URL']
+  created_at timestamptz [default: `now()`]
+  updated_at timestamptz [default: `now()`]
+}
+
+// =============================================
+// CMS - SINGLETONS (JSONB Key-Value)
+// =============================================
+
+Table site_content {
+  id int [pk, increment]
+  key varchar(100) [unique, not null, note: 'e.g. home_hero, store_hours, reservation_cta']
+  value jsonb [not null, note: 'Validated per-key by Pydantic before saving']
+}
+
+// =============================================
+// ENUMS
+// =============================================
+
+Enum page_section_enum {
+  HOME_HERO
+  HOME_GALLERY
+  STORY_DINE_IN
+  GALLERY_PAGE_GRID
+}
