@@ -8,7 +8,7 @@ import { CategoryActions } from "./category-actions";
 import { useMenuItems } from "@/hooks/use-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export type CategoryWithCount = Category & { itemCount: number };
+export type CategoryWithCount = Category & { itemCount?: number };
 
 const CategoryItemCount = ({ categoryId }: { categoryId: number }) => {
   const { data, isLoading } = useMenuItems({ category_id: categoryId, size: 1 });
@@ -16,7 +16,7 @@ const CategoryItemCount = ({ categoryId }: { categoryId: number }) => {
   return <span className="font-outfit font-medium bg-muted px-2 py-1 rounded-md text-xs">{data?.total || 0} Items</span>;
 };
 
-export const columns: ColumnDef<CategoryWithCount, any>[] = [
+export const columns: ColumnDef<Category, any>[] = [
   {
     id: "drag-handle",
     header: () => null,

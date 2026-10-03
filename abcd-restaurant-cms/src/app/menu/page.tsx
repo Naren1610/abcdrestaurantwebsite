@@ -208,7 +208,7 @@ function MenuManagementContent() {
                     />
                   </div>
                   
-                  <Select value={categoryId} onValueChange={setCategoryId}>
+                  <Select value={categoryId} onValueChange={(val) => val && setCategoryId(val)}>
                     <SelectTrigger className="w-[160px] font-outfit text-sm bg-background">
                       <div className="flex items-center truncate">
                         <Filter className="mr-2 h-4 w-4 shrink-0 text-muted-foreground" />
@@ -225,7 +225,7 @@ function MenuManagementContent() {
                     </SelectContent>
                   </Select>
 
-                  <Select value={isVegetarian} onValueChange={setIsVegetarian}>
+                  <Select value={isVegetarian} onValueChange={(val) => val && setIsVegetarian(val)}>
                     <SelectTrigger className="w-[130px] font-outfit text-sm bg-background">
                       <div className="flex items-center truncate">
                         <span className="truncate">
@@ -240,7 +240,7 @@ function MenuManagementContent() {
                     </SelectContent>
                   </Select>
 
-                  <Select value={isSpicy} onValueChange={setIsSpicy}>
+                  <Select value={isSpicy} onValueChange={(val) => val && setIsSpicy(val)}>
                     <SelectTrigger className="w-[120px] font-outfit text-sm bg-background">
                       <div className="flex items-center truncate">
                         <span className="truncate">

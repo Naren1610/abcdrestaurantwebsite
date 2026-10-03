@@ -71,8 +71,8 @@ export default function LoginPage() {
       
       // Store session expiry (response.expires_in) somewhere if needed, 
       // or rely on a global AuthProvider to manage it.
-      if (response?.expires_in) {
-        localStorage.setItem("session_expires_at", (Date.now() + response.expires_in * 1000).toString());
+      if (response?.data?.expires_in) {
+        localStorage.setItem("session_expires_at", (Date.now() + response.data.expires_in * 1000).toString());
       }
       
       router.push("/");

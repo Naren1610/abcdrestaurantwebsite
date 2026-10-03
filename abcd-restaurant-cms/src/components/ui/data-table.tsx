@@ -8,10 +8,13 @@ import {
   useReactTable,
   getExpandedRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
+  ColumnFiltersState,
   ExpandedState,
   Row,
 } from "@tanstack/react-table";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -44,6 +47,8 @@ import { CSS } from "@dnd-kit/utilities";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchKey?: string;
+  searchPlaceholder?: string;
   renderSubComponent?: (props: { row: Row<TData> }) => React.ReactNode;
   emptyMessage?: string;
   showPageSizeOptions?: boolean;
@@ -104,6 +109,8 @@ function DraggableRow({ row, renderSubComponent }: { row: Row<any>, renderSubCom
 export function DataTable<TData, TValue>({
   columns,
   data,
+  searchKey,
+  searchPlaceholder,
   renderSubComponent,
   emptyMessage = "No results found.",
   showPageSizeOptions = true,
@@ -116,6 +123,7 @@ export function DataTable<TData, TValue>({
   onReorder,
 }: DataTableProps<TData, TValue>) {
   const [expanded, setExpanded] = useState<ExpandedState>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -140,22 +148,39 @@ export function DataTable<TData, TValue>({
     state: {
       expanded,
       rowSelection,
+      columnFilters,
       ...(pagination ? { pagination } : {}),
     },
     enableRowSelection: true,
     onRowSelectionChange,
     onExpandedChange: setExpanded,
+    onColumnFiltersChange: setColumnFilters,
     onPaginationChange,
     manualPagination,
     getRowCanExpand: () => !!renderSubComponent,
     getRowId: (row: any, relativeIndex: number, parent?: any) => row.id ? String(row.id) : String(relativeIndex),
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
 
   const tableContent = (
-    <div className="rounded-xl border bg-card/60 backdrop-blur-sm overflow-hidden">
+    <div className="space-y-4">
+      {searchKey && (
+        <div className="relative max-w-sm">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder={searchPlaceholder || "Search..."}
+            value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn(searchKey)?.setFilterValue(event.target.value)
+            }
+            className="pl-9 font-outfit text-sm bg-background"
+          />
+        </div>
+      )}
+      <div className="rounded-xl border bg-card/60 backdrop-blur-sm overflow-hidden">
       <Table>
         <TableHeader className="bg-muted/50">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -305,6 +330,7 @@ export function DataTable<TData, TValue>({
           </Button>
         </div>
       </div>
+    </div>
     </div>
     </div>
   );

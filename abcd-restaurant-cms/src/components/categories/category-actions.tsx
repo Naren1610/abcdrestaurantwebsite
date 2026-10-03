@@ -33,7 +33,7 @@ export function CategoryActions({ category }: { category: CategoryWithCount }) {
     });
   };
 
-  const hasItems = category.itemCount > 0;
+  const hasItems = (category.itemCount || 0) > 0;
   const deleteTitle = `Delete "${category.name}"?`;
   const deleteDescription = hasItems 
     ? `WARNING: This category contains ${category.itemCount} menu item(s). Deleting it might cascade delete those items or fail depending on database constraints. Are you sure you want to proceed?`
