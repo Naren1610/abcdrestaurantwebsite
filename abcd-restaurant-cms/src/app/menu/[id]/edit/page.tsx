@@ -29,10 +29,10 @@ export default function EditMenuItemPage() {
         price: item.price,
         categoryId: String(item.category_id),
         tags: item.is_veg ? "veg" : "",
-        isSpicy: item.is_spicy || false,
-        isVeg: item.is_veg || false,
-        isNonVeg: false,
-        isChefSpecial: item.is_chef_special || false,
+        isSpicy: Boolean(item.is_spicy),
+        isVeg: Boolean(item.is_veg),
+        isNonVeg: !item.is_veg,
+        isChefSpecial: Boolean(item.is_chef_special),
         image: item.image_url || "",
       });
     }

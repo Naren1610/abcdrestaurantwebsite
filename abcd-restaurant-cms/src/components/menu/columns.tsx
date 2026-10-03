@@ -153,10 +153,31 @@ export const columns: ColumnDef<MenuItem, any>[] = [
     accessorKey: "is_veg",
     header: "Dietary",
     cell: ({ row }) => {
-      const isVeg = row.getValue("is_veg") as boolean; const isSpicy = row.original.is_spicy;
-      if (!isVeg && !isSpicy) return null;
+      const isVeg = row.original.is_veg;
+      const isSpicy = row.original.is_spicy;
+      const isChefSpecial = row.original.is_chef_special;
       return (
-        <div className="flex gap-1 flex-wrap">{isVeg && <Badge variant="secondary" className="bg-green-500/10 text-green-600 border-green-200">Veg</Badge>}{isSpicy && <Badge variant="secondary" className="bg-red-500/10 text-red-600 border-red-200 text-xs">🌶️ Spicy</Badge>}</div>
+        <div className="flex gap-1.5 flex-wrap items-center">
+          {isVeg ? (
+            <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-200 text-xs font-medium">
+              Veg
+            </Badge>
+          ) : (
+            <Badge variant="secondary" className="bg-rose-500/10 text-rose-600 border-rose-200 text-xs font-medium">
+              Non-Veg
+            </Badge>
+          )}
+          {isSpicy && (
+            <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-200 text-xs font-medium">
+              🌶️ Spicy
+            </Badge>
+          )}
+          {isChefSpecial && (
+            <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-200 text-xs font-medium">
+              ⭐ Chef's Special
+            </Badge>
+          )}
+        </div>
       );
     },
   },

@@ -26,7 +26,7 @@ class MenuItemBase(BaseModel):
     name: str = Field(..., max_length=200)
     description: Optional[str] = None
     price: float = Field(..., gt=0)
-    image_url: str
+    image_url: Optional[str] = None
     is_veg: bool = False
     is_spicy: bool = False
     is_chef_special: bool = False

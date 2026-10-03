@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { menuItemSchema, MenuItemFormValues } from "@/lib/schemas";
@@ -38,7 +39,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
   const { data: categoriesResponse } = useCategories({ size: 100 });
   const categories = categoriesResponse?.items || [];
 
-  const form = useForm<MenuItemFormValues>({
+    const form = useForm<MenuItemFormValues>({
     // @ts-ignore
     resolver: zodResolver(menuItemSchema),
     defaultValues: {
@@ -54,6 +55,23 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
       isChefSpecial: initialData?.isChefSpecial || false,
     },
   });
+
+  useEffect(() => {
+    if (initialData) {
+      form.reset({
+        name: initialData.name || "",
+        description: initialData.description || "",
+        price: initialData.price || 0,
+        categoryId: String(initialData.categoryId || ""),
+        tags: initialData.tags || "",
+        image: initialData.image || "",
+        isSpicy: Boolean(initialData.isSpicy),
+        isVeg: Boolean(initialData.isVeg),
+        isNonVeg: Boolean(initialData.isNonVeg),
+        isChefSpecial: Boolean(initialData.isChefSpecial),
+      });
+    }
+  }, [initialData, form]);
 
   return (
     <Form {...form}>
