@@ -3,22 +3,22 @@ import { getImageUrl } from "@/lib/services/cloudinary";
 
 const GALLERY_DATA = [
   {
-    image: getImageUrl("gallery", "gallary-01.png"),
+    image: getImageUrl("gallery", "gallary-01.png"), caption: "Vibrant evenings.",
     rotationClass: "rotate-[1.5deg] sm:rotate-[2deg]",
     pinClass: "top-[-16px] sm:top-[-22px] right-4 sm:right-8 rotate-[10deg]",
   },
   {
-    image: getImageUrl("gallery", "gallary-02.png"),
+    image: getImageUrl("gallery", "gallary-02.png"), caption: "Welcoming reception.",
     rotationClass: "-rotate-[2deg] sm:-rotate-[3deg]",
     pinClass: "top-[-15px] sm:top-[-20px] left-1/2 -translate-x-1/2 -rotate-[5deg]",
   },
   {
-    image: getImageUrl("gallery", "gallary-03.png"),
+    image: getImageUrl("gallery", "gallary-03.png"), caption: "Elegant dining.",
     rotationClass: "rotate-[1.5deg] sm:rotate-[2deg]",
     pinClass: "top-[-17px] sm:top-[-24px] right-5 sm:right-10 rotate-[12deg]",
   },
   {
-    image: getImageUrl("gallery", "gallary-04.png"),
+    image: getImageUrl("gallery", "gallary-04.png"), caption: "Warm gatherings.",
     rotationClass: "-rotate-[1.5deg] sm:-rotate-[2deg]",
     pinClass: "top-[-15px] sm:top-[-20px] right-6 sm:right-12 -rotate-[5deg]",
   },
@@ -34,7 +34,7 @@ export default function HomeGallery() {
               <GalleryItem
                 image={item.image!}
                 rotationClass={item.rotationClass}
-                pinClass={item.pinClass}
+                pinClass={item.pinClass} caption={item.caption}
               />
             </div>
           ))}
@@ -43,3 +43,4 @@ export default function HomeGallery() {
     </section>
   );
 }
+

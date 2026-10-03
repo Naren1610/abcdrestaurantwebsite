@@ -1,6 +1,7 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 
 interface GalleryItemProps {
+  caption?: string;
   image: string;
   rotationClass: string;
   pinClass: string;
@@ -10,6 +11,7 @@ export default function GalleryItem({
   image,
   rotationClass,
   pinClass,
+  caption = "{caption}",
 }: GalleryItemProps) {
   return (
     <div
@@ -40,10 +42,11 @@ export default function GalleryItem({
       {/* Caption Text */}
       <div className="absolute bottom-2 sm:bottom-3.5 lg:bottom-4 left-0 w-full text-center px-1.5 sm:px-3">
         <span className="font-playfair-display italic text-[11px] min-[390px]:text-[13px] sm:text-[15px] lg:text-[16px] text-[#3A3030] leading-tight block truncate">
-          Evenings done right.
+          {caption}
         </span>
       </div>
     </div>
   );
 }
+
 

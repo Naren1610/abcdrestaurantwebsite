@@ -12,17 +12,12 @@ interface GalleryImage {
   category: Category;
 }
 
-const mockImages: GalleryImage[] = [
-  { id: "1", src: "https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop", alt: "Fine Dining Dish", category: "Food" },
-  { id: "2", src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070&auto=format&fit=crop", alt: "Restaurant Interior", category: "Interior" },
-  { id: "3", src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1974&auto=format&fit=crop", alt: "Gourmet Pasta", category: "Food" },
-  { id: "4", src: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop", alt: "Cocktail Drinks", category: "Food" },
-  { id: "5", src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop", alt: "Special Event Layout", category: "Events" },
-  { id: "6", src: "https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?q=80&w=2071&auto=format&fit=crop", alt: "Elegant Seating", category: "Interior" },
-  { id: "7", src: "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2070&auto=format&fit=crop", alt: "Steak Dish", category: "Food" },
-  { id: "8", src: "https://images.unsplash.com/photo-1533777324565-a040eb52facd?q=80&w=2036&auto=format&fit=crop", alt: "Private Dining Room", category: "Events" },
-  { id: "9", src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2070&auto=format&fit=crop", alt: "Plated Dessert", category: "Food" },
-];
+const mockImages: GalleryImage[] = Array.from({ length: 30 }).map((_, i) => ({
+  id: `gallary-${i + 1}`,
+  src: `https://res.cloudinary.com/jvmkdwil/image/upload/abcd-restaurant/gallary/images/demo/gallary-${(i + 1).toString().padStart(2, "0")}.jpg`,
+  alt: `Restaurant Interior ${i + 1}`,
+  category: "Interior"
+}));
 
 const categories: Category[] = ["All", "Food", "Interior", "Events"];
 
@@ -88,3 +83,4 @@ export default function GalleryClient() {
     </div>
   );
 }
+
