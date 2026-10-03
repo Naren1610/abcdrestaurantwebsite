@@ -1,9 +1,16 @@
-﻿import Stripe from "stripe";
+import Stripe from "stripe";
 import { getImageUrl } from "./cloudinary";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  typescript: true,
-});
+let _stripe: Stripe | null = null;
+
+function getStripe(): Stripe {
+  if (!_stripe) {
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      typescript: true,
+    });
+  }
+  return _stripe;
+}
 
 export interface CheckoutLineItem {
   name: string;
@@ -16,6 +23,7 @@ export async function createCheckoutSession(
   items: CheckoutLineItem[],
   metadata: Record<string, string> = {}
 ) {
+  const stripe = getStripe();
   const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map(
     (item) => {
       let imageUrl: string | undefined;
@@ -50,6 +58,7 @@ export async function createCheckoutSession(
 }
 
 export async function retrieveCheckoutSession(sessionId: string) {
+  const stripe = getStripe();
   const session = await stripe.checkout.sessions.retrieve(sessionId, {
     expand: ["line_items"],
   });
