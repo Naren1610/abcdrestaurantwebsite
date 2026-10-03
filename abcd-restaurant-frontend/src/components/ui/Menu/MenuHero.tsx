@@ -102,7 +102,7 @@ export default function MenuHero() {
                 className="group flex flex-col items-center justify-center flex-1 min-w-[105px] sm:min-w-[125px] transition-transform hover:-translate-y-1.5 duration-300 px-2"
               >
                 <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-[72px] lg:h-[72px] mb-2 sm:mb-3">
-                  <Image src={`/images/home/menu-categories/${category.image}`} alt={category.name} fill className="object-contain drop-shadow-sm" />
+                  <Image src={`/images/home/menu-categories/${category.image}`} alt={category.name} fill sizes="72px" className="object-contain drop-shadow-sm" />
                 </div>
                 <span className="font-outfit font-semibold text-[13px] sm:text-[14px] lg:text-[15px] text-[#2C2627] group-hover:text-brand transition-colors text-center leading-tight">
                   {category.name}

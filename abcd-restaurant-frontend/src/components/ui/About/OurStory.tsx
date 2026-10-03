@@ -43,6 +43,7 @@ export default function OurStory() {
                 alt="ABCD Restaurant Exterior and Parking View"
                 width={840}
                 height={648}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
                 className="h-full lg:h-auto w-full object-cover object-center select-none ml-auto"
               />

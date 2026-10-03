@@ -51,6 +51,7 @@ export default function Hero() {
                 src="/images/home/bhongir-fort-illusion.webp"
                 alt="Bhongir Fort Line Art"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain object-left lg:object-right"
                 priority
               />
@@ -62,6 +63,7 @@ export default function Hero() {
                 src="/images/home/tajmahal-illusion.webp"
                 alt="Taj Mahal Line Art"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain object-right"
                 priority
               />
@@ -73,6 +75,7 @@ export default function Hero() {
                 src="/images/home/biryani-handi.webp"
                 alt="Delicious Biryani Handi"
                 fill
+                sizes="(max-width: 640px) 270px, (max-width: 1024px) 380px, (max-width: 1280px) 480px, 540px"
                 className="object-contain"
                 priority
               />

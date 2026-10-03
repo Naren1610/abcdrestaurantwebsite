@@ -15,6 +15,7 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_floral_left.png"
               alt=""
               fill
+              sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 0vw"
               className="object-contain object-bottom"
               priority
             />
@@ -36,6 +37,7 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_floral_right.png"
               alt=""
               fill
+              sizes="(max-width: 640px) 25vw, (max-width: 1024px) 20vw, 15vw"
               className="object-contain object-top"
             />
           </div>
@@ -46,6 +48,7 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_tajmahal.png"
               alt=""
               fill
+              sizes="(max-width: 1024px) 0vw, 30vw"
               className="object-contain object-right"
               priority
             />
@@ -57,6 +60,7 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_tajmahal.png"
               alt=""
               fill
+              sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 0vw"
               className="object-contain object-bottom"
               priority
             />
@@ -68,6 +72,7 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_diamond_arc.png"
               alt=""
               fill
+              sizes="(max-width: 640px) 150px, (max-width: 1024px) 210px, 20vw"
               className="object-contain"
             />
           </div>
