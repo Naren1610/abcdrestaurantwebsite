@@ -26,8 +26,7 @@ interface CategoryFormProps {
 
 export function CategoryForm({ initialData, onSubmit, onCancel, isLoading }: CategoryFormProps) {
   const form = useForm<CategoryFormValues>({
-    // @ts-ignore
-    resolver: zodResolver(categorySchema),
+        resolver: zodResolver(categorySchema),
     defaultValues: initialData || {
       name: "",
       subtitle: "",
@@ -44,12 +43,11 @@ export function CategoryForm({ initialData, onSubmit, onCancel, isLoading }: Cat
 
   return (
     <Form {...form}>
-      {/* @ts-ignore */}
-      <form onSubmit={form.handleSubmit(handleSubmit as any)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8">
         
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
           <FormField
-            control={form.control as any}
+                        control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
@@ -66,7 +64,7 @@ export function CategoryForm({ initialData, onSubmit, onCancel, isLoading }: Cat
           />
 
           <FormField
-            control={form.control as any}
+                        control={form.control}
             name="subtitle"
             render={({ field }) => (
               <FormItem>

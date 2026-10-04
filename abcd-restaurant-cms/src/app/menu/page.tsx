@@ -26,7 +26,7 @@ const CategorySubItems = ({ categoryId }: { categoryId: number }) => {
   return (
     <div className="p-4 px-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {data.items.map((item: any) => (
+        {data.items.map((item: import('@/types/api/menu').MenuItem) => (
           <div key={item.id} className="flex items-center gap-3 bg-background p-3 rounded-lg border border-border/60 shadow-sm">
             {item.image_url ? (
               <img src={item.image_url} alt={item.name} className="h-12 w-12 object-cover rounded-md" />
@@ -111,7 +111,7 @@ function MenuManagementContent() {
   const bulkReorderMenuItems = useBulkReorderMenuItems();
   const bulkReorderCategories = useBulkReorderCategories();
 
-  const handleReorderItems = (reorderedData: any[]) => {
+  const handleReorderItems = (reorderedData: import('@/types/api/menu').MenuItem[]) => {
     const payload = reorderedData.map((item, index) => ({
       id: item.id,
       display_order: index + (itemsPageIndex * itemsPageSize), // maintain absolute order
@@ -122,7 +122,7 @@ function MenuManagementContent() {
     });
   };
 
-  const handleReorderCategories = (reorderedData: any[]) => {
+  const handleReorderCategories = (reorderedData: import('@/types/api/menu').Category[]) => {
     const payload = reorderedData.map((cat, index) => ({
       id: cat.id,
       display_order: index + (catPageIndex * catPageSize),
@@ -171,7 +171,7 @@ function MenuManagementContent() {
           <div>
             <h2 className="text-3xl font-bold font-playfair tracking-tight text-brand">Menu Management</h2>
             <p className="text-muted-foreground font-outfit mt-2 text-sm">
-              Manage your restaurant's food offerings and categories.
+              Manage your restaurant&apos;s food offerings and categories.
             </p>
           </div>
           <CustomTabsList className="w-auto border-none">
@@ -213,13 +213,13 @@ function MenuManagementContent() {
                       <div className="flex items-center truncate">
                         <Filter className="mr-2 h-4 w-4 shrink-0 text-muted-foreground" />
                         <span className="truncate">
-                          {categoryId === "all" ? "All Categories" : allCategoriesResponse?.items?.find((c: any) => c.id.toString() === categoryId)?.name || "Category"}
+                          {categoryId === "all" ? "All Categories" : allCategoriesResponse?.items?.find((c: import('@/types/api/menu').Category) => c.id.toString() === categoryId)?.name || "Category"}
                         </span>
                       </div>
                     </SelectTrigger>
                     <SelectContent className="font-outfit text-sm">
                       <SelectItem value="all">All Categories</SelectItem>
-                      {allCategoriesResponse?.items?.map((cat: any) => (
+                      {allCategoriesResponse?.items?.map((cat: import('@/types/api/menu').Category) => (
                         <SelectItem key={cat.id} value={cat.id.toString()}>{cat.name}</SelectItem>
                       ))}
                     </SelectContent>
@@ -288,7 +288,7 @@ function MenuManagementContent() {
               </div>
               <h3 className="font-playfair text-lg font-semibold text-foreground mb-1">Failed to Load Menu Items</h3>
               <p className="font-outfit text-sm text-muted-foreground max-w-sm mb-6">
-                {(itmError as any)?.message || "We encountered an issue fetching the menu items. Please try again."}
+                {(itmError as Error)?.message || "We encountered an issue fetching the menu items. Please try again."}
               </p>
               <Button onClick={() => refetchItems()} className="font-outfit bg-brand text-white hover:bg-brand/90">
                 <RotateCw className="mr-2 h-4 w-4" />
@@ -366,7 +366,7 @@ function MenuManagementContent() {
               </div>
               <h3 className="font-playfair text-lg font-semibold text-foreground mb-1">Failed to Load Categories</h3>
               <p className="font-outfit text-sm text-muted-foreground max-w-sm mb-6">
-                {(catError as any)?.message || "We encountered an issue fetching the categories. Please try again."}
+                {(catError as Error)?.message || "We encountered an issue fetching the categories. Please try again."}
               </p>
               <Button onClick={() => refetchCategories()} className="font-outfit bg-brand text-white hover:bg-brand/90">
                 <RotateCw className="mr-2 h-4 w-4" />

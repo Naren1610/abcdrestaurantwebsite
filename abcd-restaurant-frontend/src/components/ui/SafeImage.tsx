@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image, { ImageProps } from "next/image";
 import { FALLBACK_MENU_IMAGE } from "@/lib/services/cloudinary";
+import { getImagePlaceholder } from "@/lib/services/image-service";
 
 interface SafeImageProps extends Omit<ImageProps, "src"> {
   src?: string;
@@ -17,15 +18,17 @@ export default function SafeImage({
 }: SafeImageProps) {
   const [error, setError] = useState(false);
 
-  if (!src) {
-    return <Image src={fallbackSrc} alt={alt} {...props} />;
-  }
+  const activeSrc = error || !src ? fallbackSrc : src;
+  
+  // Automatically attempt to get a low-quality placeholder for the active source
+  const blurUrl = getImagePlaceholder(activeSrc);
 
   return (
     <Image
-      src={error ? fallbackSrc : src}
+      src={activeSrc}
       alt={alt}
       onError={() => setError(true)}
+      {...(blurUrl ? { placeholder: "blur", blurDataURL: blurUrl } : {})}
       {...props}
     />
   );

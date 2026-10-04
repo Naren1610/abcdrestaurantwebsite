@@ -33,8 +33,7 @@ const mockMenuItems = [
 
 export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps) {
   const form = useForm<HomeContentFormValues>({
-    // @ts-ignore
-    resolver: zodResolver(homeContentSchema),
+        resolver: zodResolver(homeContentSchema),
     defaultValues: initialData || {
       heroHeadline: "",
       heroSubheadline: "",
@@ -56,8 +55,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
 
   return (
     <Form {...form}>
-      {/* @ts-ignore */}
-      <form onSubmit={form.handleSubmit(handleSubmit as any)} className="space-y-12">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-12">
         
         {/* Hero Section */}
         <div>
@@ -65,7 +63,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-muted/20 p-6 rounded-xl border border-border/50">
             <div className="space-y-6">
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="heroHeadline"
                 render={({ field }) => (
                   <FormItem>
@@ -79,7 +77,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
               />
 
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="heroSubheadline"
                 render={({ field }) => (
                   <FormItem>
@@ -98,7 +96,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
             </div>
             <div className="space-y-6">
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="heroImage"
                 render={({ field }) => (
                   <FormItem>
@@ -120,7 +118,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
           <h3 className="text-xl font-playfair font-semibold mb-4 text-brand">Call to Action (CTA)</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-muted/20 p-6 rounded-xl border border-border/50">
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="ctaText"
               render={({ field }) => (
                 <FormItem>
@@ -134,7 +132,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
             />
 
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="ctaLink"
               render={({ field }) => (
                 <FormItem>
@@ -154,7 +152,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
           <h3 className="text-xl font-playfair font-semibold mb-4 text-brand">Featured Menu Items</h3>
           <div className="bg-muted/20 p-6 rounded-xl border border-border/50">
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="featuredItems"
               render={() => (
                 <FormItem>
@@ -168,7 +166,7 @@ export function HomeContentForm({ initialData, onSubmit }: HomeContentFormProps)
                     {mockMenuItems.map((item) => (
                       <FormField
                         key={item.id}
-                        control={form.control as any}
+                                                control={form.control}
                         name="featuredItems"
                         render={({ field }) => {
                           return (

@@ -9,13 +9,14 @@ function CartContainerInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const shouldBeOpen = searchParams.get("cart") === "open";
+  const [prevShouldBeOpen, setPrevShouldBeOpen] = useState(shouldBeOpen);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(shouldBeOpen);
 
-  // sync with ?cart=open param
-  useEffect(() => {
-    const shouldBeOpen = searchParams.get("cart") === "open";
+  if (shouldBeOpen !== prevShouldBeOpen) {
+    setPrevShouldBeOpen(shouldBeOpen);
     setIsDrawerOpen(shouldBeOpen);
-  }, [searchParams]);
+  }
 
   const handleOpen = () => {
     setIsDrawerOpen(true);

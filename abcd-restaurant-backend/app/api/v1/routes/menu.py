@@ -2,13 +2,19 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.session import get_db
-from app.schemas.menu import CategoryCreate, CategoryUpdate, CategoryResponse, MenuItemCreate, MenuItemUpdate, MenuItemResponse, BulkDelete, BulkReorder
+from app.schemas.menu import ClientMenuCategoryResponse, CategoryCreate, CategoryUpdate, CategoryResponse, MenuItemCreate, MenuItemUpdate, MenuItemResponse, BulkDelete, BulkReorder
 from app.schemas.common import PaginatedResponse, PaginationParams
 from app.services.menu_service import menu_service
 
 # from app.api.dependencies import get_current_active_admin
 
 router = APIRouter()
+
+
+# --- Client (BFF) Routes ---
+@router.get("/client", response_model=List[ClientMenuCategoryResponse])
+async def get_client_menu(db: AsyncSession = Depends(get_db)):
+    return await menu_service.get_client_menu(db)
 
 # --- Categories ---
 @router.get("/categories/{category_id}", response_model=CategoryResponse)

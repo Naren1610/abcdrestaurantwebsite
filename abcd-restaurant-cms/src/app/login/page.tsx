@@ -71,7 +71,7 @@ export default function LoginPage() {
       
       // Store session expiry (response.expires_in) somewhere if needed, 
       // or rely on a global AuthProvider to manage it.
-      const resData = (response as any)?.data || response;
+      const resData = (response as { data?: { access_token?: string, expires_in?: number }; access_token?: string, expires_in?: number })?.data || response as { access_token?: string, expires_in?: number };
       if (resData?.access_token) {
         localStorage.setItem("access_token", resData.access_token);
       }
@@ -81,12 +81,13 @@ export default function LoginPage() {
       }
       
       router.push("/");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as import('axios').AxiosError<{detail: string}>;
       console.error("Login error:", error);
-      const detail = error.response?.data?.detail;
-      const errorMsg = detail || (error.message === "Network Error" 
+      const detail = err.response?.data?.detail;
+      const errorMsg = detail || (err.message === "Network Error" 
         ? "Unable to reach backend. Check your backend status and CORS settings." 
-        : error.message || "Invalid email or password");
+        : err.message || "Invalid email or password");
       toast.error(errorMsg);
     } finally {
       setIsLoading(false);
@@ -153,7 +154,7 @@ export default function LoginPage() {
                   {TESTIMONIALS.map((t, idx) => (
                     <CarouselItem key={idx}>
                       <div className="flex flex-col gap-1">
-                        <p className="font-outfit text-sm text-white/60 italic">"{t.quote}"</p>
+                        <p className="font-outfit text-sm text-white/60 italic">&quot;{t.quote}&quot;</p>
                         <p className="font-outfit font-medium text-white">— {t.name}</p>
                       </div>
                     </CarouselItem>

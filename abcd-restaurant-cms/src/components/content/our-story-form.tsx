@@ -26,8 +26,7 @@ interface OurStoryFormProps {
 
 export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
   const form = useForm<OurStoryFormValues>({
-    // @ts-ignore
-    resolver: zodResolver(ourStorySchema),
+        resolver: zodResolver(ourStorySchema),
     defaultValues: initialData || {
       storyHeadline: "",
       storyContent: "",
@@ -54,15 +53,14 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
 
   return (
     <Form {...form}>
-      {/* @ts-ignore */}
-      <form onSubmit={form.handleSubmit(handleSubmit as any)} className="space-y-10">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-10">
         
         {/* Main Story Content Section */}
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-muted/10 p-6 rounded-xl border border-border/50">
             <div className="space-y-6">
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="storyHeadline"
                 render={({ field }) => (
                   <FormItem>
@@ -76,7 +74,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
               />
 
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="storyContent"
                 render={({ field }) => (
                   <FormItem>
@@ -95,7 +93,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
             </div>
             <div className="space-y-6">
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="storyImage"
                 render={({ field }) => (
                   <FormItem>
@@ -147,7 +145,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
                 <div className="lg:col-span-2 space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <FormField
-                      control={form.control as any}
+                                            control={form.control}
                       name={`teamMembers.${index}.name` as const}
                       render={({ field }) => (
                         <FormItem>
@@ -160,7 +158,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
                       )}
                     />
                     <FormField
-                      control={form.control as any}
+                                            control={form.control}
                       name={`teamMembers.${index}.role` as const}
                       render={({ field }) => (
                         <FormItem>
@@ -175,7 +173,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
                   </div>
 
                   <FormField
-                    control={form.control as any}
+                                        control={form.control}
                     name={`teamMembers.${index}.description` as const}
                     render={({ field }) => (
                       <FormItem>
@@ -194,7 +192,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
 
                   <div className="grid grid-cols-2 gap-4">
                     <FormField
-                      control={form.control as any}
+                                            control={form.control}
                       name={`teamMembers.${index}.facebookUrl` as const}
                       render={({ field }) => (
                         <FormItem>
@@ -207,7 +205,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
                       )}
                     />
                     <FormField
-                      control={form.control as any}
+                                            control={form.control}
                       name={`teamMembers.${index}.instagramUrl` as const}
                       render={({ field }) => (
                         <FormItem>
@@ -224,7 +222,7 @@ export function OurStoryForm({ initialData, onSubmit }: OurStoryFormProps) {
 
                 <div className="lg:col-span-1 space-y-6 pt-2">
                   <FormField
-                    control={form.control as any}
+                                        control={form.control}
                     name={`teamMembers.${index}.image` as const}
                     render={({ field }) => (
                       <FormItem>

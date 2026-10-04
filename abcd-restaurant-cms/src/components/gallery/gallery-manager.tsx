@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Plus, Trash2, Edit2, Image as ImageIcon, GripVertical, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Loader2, AlertCircle } from "lucide-react";
 import Image from "next/image";
+import SafeImage from "@/components/ui/SafeImage";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
@@ -56,9 +57,9 @@ function SortableCategoryRow({
   onDelete, 
   onToggle 
 }: { 
-  category: any, 
-  onEdit: (cat: any) => void, 
-  onDelete: (cat: any) => void,
+  category: import('@/types/api/gallery').GalleryCategory, 
+  onEdit: (cat: import('@/types/api/gallery').GalleryCategory) => void, 
+  onDelete: (cat: import('@/types/api/gallery').GalleryCategory) => void,
   onToggle: (id: number, currentStatus: boolean) => void
 }) {
   const {
@@ -74,7 +75,7 @@ function SortableCategoryRow({
     transform: CSS.Transform.toString(transform),
     transition,
     zIndex: isDragging ? 1 : 0,
-    position: 'relative' as 'relative',
+    position: 'relative' as const,
   };
 
   return (
@@ -165,25 +166,29 @@ export function GalleryManager() {
   const [newCategoryName, setNewCategoryName] = useState("");
   const [newCategoryOrder, setNewCategoryOrder] = useState(0);
   
-  const [editingCategory, setEditingCategory] = useState<any>(null);
+  const [editingCategory, setEditingCategory] = useState<import('@/types/api/gallery').GalleryCategory | null>(null);
   
   // Delete Modals
-  const [categoryToDelete, setCategoryToDelete] = useState<any>(null);
-  const [imageToDelete, setImageToDelete] = useState<any>(null);
+  const [categoryToDelete, setCategoryToDelete] = useState<import('@/types/api/gallery').GalleryCategory | null>(null);
+  const [imageToDelete, setImageToDelete] = useState<import('@/types/api/gallery').GalleryImage | null>(null);
   // Note: Pagination slicing removed because it's now handled by the backend
 
-  useEffect(() => {
+  const [prevTabParam, setPrevTabParam] = useState(tabParam);
+  if (tabParam !== prevTabParam) {
+    setPrevTabParam(tabParam);
     if (tabParam && (tabParam === "categories" || tabParam === "images" || tabParam === "top-picks")) {
       setActiveTab(tabParam);
     }
-  }, [tabParam]);
+  }
   
-  useEffect(() => {
+  const [prevIsAddModalOpen, setPrevIsAddModalOpen] = useState(isAddModalOpen);
+  if (isAddModalOpen !== prevIsAddModalOpen) {
+    setPrevIsAddModalOpen(isAddModalOpen);
     if (isAddModalOpen) {
       setNewCategoryName("");
       setNewCategoryOrder(categories.length + 1);
     }
-  }, [isAddModalOpen, categories.length]);
+  }
 
   const handleTabChange = (val: string) => {
     setActiveTab(val);
@@ -213,7 +218,7 @@ export function GalleryManager() {
       try {
         await reorderCategories.mutateAsync(updatePayload);
         toast.success("Order updated successfully!");
-      } catch (error) {
+      } catch {
         toast.error("Failed to reorder categories");
       }
     }
@@ -229,7 +234,7 @@ export function GalleryManager() {
       });
       toast.success("Category created successfully!");
       setIsAddModalOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to create category");
     }
   };
@@ -248,7 +253,7 @@ export function GalleryManager() {
       });
       toast.success("Category updated successfully!");
       setIsEditModalOpen(false);
-    } catch (error) {
+    } catch {
       toast.error("Failed to update category");
     }
   };
@@ -259,7 +264,7 @@ export function GalleryManager() {
         await deleteCategory.mutateAsync(categoryToDelete.id);
         toast.success("Category deleted successfully!");
         setCategoryToDelete(null);
-      } catch (error) {
+      } catch {
         toast.error("Failed to delete category");
       }
     }
@@ -271,7 +276,7 @@ export function GalleryManager() {
         await deleteImage.mutateAsync(imageToDelete.id);
         toast.success("Image deleted successfully!");
         setImageToDelete(null);
-      } catch (error) {
+      } catch {
         toast.error("Failed to delete image");
       }
     }
@@ -284,7 +289,7 @@ export function GalleryManager() {
         data: { is_active: !currentStatus }
       });
       toast.success(`Category ${!currentStatus ? 'activated' : 'hidden'}`);
-    } catch (error) {
+    } catch {
       toast.error("Failed to update status");
     }
   };
@@ -367,7 +372,7 @@ export function GalleryManager() {
                     return (
                       <div key={img.id} className="group flex flex-col bg-muted/5 rounded-xl border border-border/50 overflow-hidden">
                         <div className="aspect-[4/3] relative bg-muted/20">
-                          <Image 
+                          <SafeImage 
                             src={img.image_url} 
                             alt={img.title || "Gallery image"}
                             fill
@@ -631,7 +636,7 @@ export function GalleryManager() {
             <div className="mb-6">
               <h3 className="text-xl font-playfair font-semibold text-brand mb-2">Storefront Top Picks</h3>
               <p className="text-muted-foreground font-outfit text-sm">
-                Images marked as Top Picks will be displayed directly on the restaurant's home screen.
+                Images marked as Top Picks will be displayed directly on the restaurant&apos;s home screen.
               </p>
             </div>
             
@@ -650,7 +655,7 @@ export function GalleryManager() {
                 return (
                   <div key={img.id} className="group flex flex-col bg-white p-3 rounded-none shadow-sm border border-border/20 overflow-hidden transition-all hover:shadow mx-auto w-full max-w-[280px]">
                     <div className="aspect-square relative bg-muted/20 w-full">
-                      <Image 
+                      <SafeImage 
                         src={img.image_url} 
                         alt={img.title || "Gallery image"}
                         fill

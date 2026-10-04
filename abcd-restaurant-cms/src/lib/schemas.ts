@@ -6,7 +6,7 @@ export const menuItemSchema = z.object({
   price: z.coerce.number().min(0.01, "Price must be greater than 0."),
   categoryId: z.string().min(1, "Please select a category."),
   tags: z.string().optional(), // We'll parse this into an array
-  image: z.any().refine((val) => val !== "" && val !== undefined && val !== null, "Image is required."),
+  image: z.string().min(1, "Image is required."),
   isSpicy: z.boolean().default(false),
   isVeg: z.boolean().default(false),
   isNonVeg: z.boolean().default(false),
@@ -16,7 +16,9 @@ export const menuItemSchema = z.object({
   path: ["isVeg"],
 });
 
-export type MenuItemFormValues = z.infer<typeof menuItemSchema>;
+export type MenuItemFormOutput = z.output<typeof menuItemSchema>;
+export type MenuItemFormInput = z.input<typeof menuItemSchema>;
+export type MenuItemFormValues = MenuItemFormOutput;
 
 export const categorySchema = z.object({
   name: z.string().min(2, { message: "Category name must be at least 2 characters." }),
@@ -28,7 +30,7 @@ export type CategoryFormValues = z.infer<typeof categorySchema>;
 export const homeContentSchema = z.object({
   heroHeadline: z.string().min(2, "Headline must be at least 2 characters."),
   heroSubheadline: z.string().optional(),
-  heroImage: z.any().optional(),
+  heroImage: z.string().optional(),
   ctaText: z.string().optional(),
   ctaLink: z.string().optional(),
   featuredItems: z.array(z.string()).optional(),
@@ -39,12 +41,12 @@ export type HomeContentFormValues = z.infer<typeof homeContentSchema>;
 export const ourStorySchema = z.object({
   storyHeadline: z.string().min(2, "Headline is required."),
   storyContent: z.string().optional(),
-  storyImage: z.any().optional(),
+  storyImage: z.string().optional(),
   teamMembers: z.array(z.object({
     name: z.string().min(1, "Name is required"),
     role: z.string().min(1, "Role is required"),
     description: z.string().optional(),
-    image: z.any().optional(),
+    image: z.string().optional(),
     facebookUrl: z.string().optional(),
     instagramUrl: z.string().optional(),
   })).optional(),

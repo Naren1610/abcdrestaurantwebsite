@@ -18,3 +18,21 @@ export interface MenuItem {
   category_id: number;
   category: Category | null;
 }
+
+
+export interface ClientMenuItem {
+  id: string;
+  name: string;
+  description: string | null;
+  price: number;
+  image: string | null;
+  tags: string[];
+  isChefPick: boolean;
+}
+
+export interface ClientMenuCategory {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  items: ClientMenuItem[];
+}

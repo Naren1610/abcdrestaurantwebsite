@@ -21,7 +21,9 @@ export default function EditMenuItemPage() {
 
   const [initialData, setInitialData] = useState<MenuItemFormValues | null>(null);
 
-  useEffect(() => {
+  const [prevItem, setPrevItem] = useState(item);
+  if (item !== prevItem) {
+    setPrevItem(item);
     if (item) {
       setInitialData({
         name: item.name,
@@ -36,7 +38,7 @@ export default function EditMenuItemPage() {
         image: item.image_url || "",
       });
     }
-  }, [item]);
+  }
 
   const handleUpdate = (values: MenuItemFormValues) => {
     updateMenuItem.mutate(
@@ -89,7 +91,7 @@ export default function EditMenuItemPage() {
               </div>
               <h3 className="font-playfair text-lg font-semibold text-foreground mb-1">Failed to Load Menu Item</h3>
               <p className="font-outfit text-sm text-muted-foreground max-w-sm mb-6">
-                {(error as any)?.message || "We encountered an issue fetching the menu item details. Please try again."}
+                {(error as Error)?.message || "We encountered an issue fetching the menu item details. Please try again."}
               </p>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => router.push("/menu?tab=items")} className="font-outfit">

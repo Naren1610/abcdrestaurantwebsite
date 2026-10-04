@@ -162,7 +162,7 @@ export const columns: ColumnDef<Reservation>[] = [
     header: "Status",
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
-      let variant = "default";
+      const variant = "default";
       let className = "font-outfit text-xs";
       
       if (status === "Confirmed") className += " bg-emerald-500/10 text-emerald-600 border-emerald-200 hover:bg-emerald-500/20";
@@ -223,7 +223,7 @@ export default function ReservationsPage() {
           <div className="bg-card/60 backdrop-blur-sm border rounded-xl p-5">
             <div className="flex items-center gap-2 mb-2 text-brand">
               <CalendarCheck className="w-4 h-4" />
-              <h3 className="font-outfit font-semibold text-sm">Today's Bookings</h3>
+              <h3 className="font-outfit font-semibold text-sm">Today&apos;s Bookings</h3>
             </div>
             <p className="font-outfit text-2xl font-bold">24 <span className="text-xs font-normal text-muted-foreground">tables</span></p>
           </div>

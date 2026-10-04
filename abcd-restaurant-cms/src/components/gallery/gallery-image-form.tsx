@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { ImageUpload } from "@/components/menu/image-upload";
 import { useGalleryCategories, useCreateGalleryImage, useUpdateGalleryImage } from "@/hooks/use-gallery";
 
-export function GalleryImageForm({ initialData }: { initialData?: any }) {
+export function GalleryImageForm({ initialData }: { initialData?: import('@/types/api/gallery').GalleryImage }) {
   const router = useRouter();
   
   const { data: categoriesData, isLoading: isLoadingCategories } = useGalleryCategories(1, 100);

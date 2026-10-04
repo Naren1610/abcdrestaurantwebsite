@@ -8,11 +8,46 @@ from sqlalchemy.future import select
 from app.database.session import get_db
 from app.models.gallery import GalleryCategory, GalleryImage
 from app.schemas.gallery import (
+    ClientGalleryResponse, ClientGalleryImage,
     GalleryCategoryCreate, GalleryCategoryUpdate, GalleryCategoryResponse, GalleryCategoryReorder,
     GalleryImageCreate, GalleryImageUpdate, GalleryImageResponse
 )
 
 router = APIRouter()
+
+
+@router.get("/client", response_model=ClientGalleryResponse)
+async def get_client_gallery(db: AsyncSession = Depends(get_db)):
+    from sqlalchemy.orm import selectinload
+    
+    # Fetch all active categories ordered by display_order
+    cat_stmt = select(GalleryCategory).filter(GalleryCategory.is_active == True).order_by(GalleryCategory.display_order)
+    cat_result = await db.execute(cat_stmt)
+    categories = cat_result.scalars().all()
+    category_names = [cat.name for cat in categories]
+    
+    # Fetch all images
+    img_stmt = select(GalleryImage).options(selectinload(GalleryImage.category)).order_by(GalleryImage.created_at.desc())
+    img_result = await db.execute(img_stmt)
+    images = img_result.scalars().all()
+    
+    active_cat_names = set(category_names)
+    
+    client_images = []
+    for img in images:
+        cat_name = img.category.name if img.category else "Other"
+        if cat_name in active_cat_names:
+            client_images.append({
+                "id": img.id,
+                "image_url": img.image_url,
+                "title": img.title or img.caption or "Gallery Image",
+                "category_name": cat_name
+            })
+            
+    return {
+        "categories": category_names,
+        "images": client_images
+    }
 
 # --- Categories ---
 

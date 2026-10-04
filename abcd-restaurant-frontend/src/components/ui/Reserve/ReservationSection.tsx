@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
+const emptySubscribe = () => () => {};
 import StepProgress from "./StepProgress";
 import Step1ChooseDate from "./Step1ChooseDate";
 import Step2PartySize from "./Step2PartySize";
@@ -10,11 +11,7 @@ import { CheckCircle2, Calendar, Users, Clock, ArrowRight } from "lucide-react";
 
 export default function ReservationSection() {
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   // form state
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());

@@ -18,10 +18,12 @@ import axios from "axios";
 export function ImageUpload({ value, onChange, aspectRatio = "auto", className = "w-full" }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(value || null);
   const [isUploading, setIsUploading] = useState(false);
+  const [prevValue, setPrevValue] = useState(value);
 
-  useEffect(() => {
+  if (value !== prevValue) {
+    setPrevValue(value);
     setPreview(value || null);
-  }, [value]);
+  }
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -38,7 +40,7 @@ export function ImageUpload({ value, onChange, aspectRatio = "auto", className =
         entity_type: "menu",
         entity_name: file.name.split('.')[0] || "image",
       });
-      const { signature, timestamp, public_id, folder, api_key, cloud_name } = sigResponse as any;
+      const { signature, timestamp, public_id, folder, api_key, cloud_name } = (sigResponse as unknown as import('axios').AxiosResponse<{ signature: string, timestamp: number, public_id: string, folder: string, api_key: string, cloud_name: string }>).data;
 
       // 2. Prepare Cloudinary FormData
       const formData = new FormData();

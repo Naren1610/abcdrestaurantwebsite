@@ -59,7 +59,7 @@ export default function PaymentMethodForm({ onProcessingChange }: { onProcessing
       } else {
         throw new Error("No checkout URL received from Stripe");
       }
-} catch (err) {
+} catch {
       window.location.replace("/checkout/payment?error=failed");
     }
   };
@@ -79,7 +79,7 @@ export default function PaymentMethodForm({ onProcessingChange }: { onProcessing
             Payment Method
           </h1>
           <p className="font-poppins text-[15px] sm:text-[16px] text-[#2C1810] mt-2">
-            Choose how you'd like to pay.
+            Choose how you&apos;d like to pay.
           </p>
         </div>
 

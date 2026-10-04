@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -29,13 +30,14 @@ export default function CustomerDetailsForm() {
     try {
       const stored = customerStore.get();
       if (stored) {
+        queueMicrotask(() => {
         if (stored.mode) setMode(stored.mode);
         if (stored.fullName) setFullName(stored.fullName);
         if (stored.mobileNumber) setMobileNumber(stored.mobileNumber);
         if (stored.address) setAddress(stored.address);
         if (stored.apartment) setApartment(stored.apartment);
         if (stored.zipCode) setZipCode(stored.zipCode);
-        if (stored.instructions) setInstructions(stored.instructions);
+        if (stored.instructions) setInstructions(stored.instructions);        });
       }
     } catch {
       // ignore

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { Loader2 } from "lucide-react";
@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     if (pathname === "/login") {
       setIsLoading(false);
       return;
@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const data = await apiClient.get("/auth/me");
       setUser(data as unknown as User);
-    } catch (error) {
+    } catch {
       setUser(null);
       localStorage.removeItem("session_expires_at");
       if (pathname !== "/login") {
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [pathname, router]);
 
   const logout = async () => {
     try {
@@ -67,8 +67,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Authentication fetching on mount/route-change requires syncing state
     fetchUser();
-  }, [pathname]);
+  }, [pathname, fetchUser]);
 
   // Session timer logic
   useEffect(() => {

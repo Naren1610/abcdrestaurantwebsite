@@ -22,7 +22,7 @@ export default function Home() {
           <div>
             <h2 className="text-3xl font-bold font-playfair tracking-tight text-brand">Dashboard Overview</h2>
             <p className="text-muted-foreground font-outfit mt-2 text-sm">
-              Welcome back! Here's what's happening at ABCD Restaurant today.
+              Welcome back! Here&apos;s what&apos;s happening at ABCD Restaurant today.
             </p>
           </div>
           <div className="flex gap-3">
@@ -39,7 +39,7 @@ export default function Home() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border bg-card/60 backdrop-blur-sm p-6 shadow-none">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-medium text-muted-foreground tracking-wide font-outfit">Today's Revenue</h3>
+              <h3 className="text-sm font-medium text-muted-foreground tracking-wide font-outfit">Today&apos;s Revenue</h3>
               <div className="p-2 bg-emerald-500/10 rounded-lg text-emerald-600">
                 <DollarSign className="w-4 h-4" />
               </div>

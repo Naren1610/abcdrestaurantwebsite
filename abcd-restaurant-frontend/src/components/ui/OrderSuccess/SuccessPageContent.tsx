@@ -23,14 +23,15 @@ export default function SuccessPageContent() {
 
   const clearCart = useCartStore((state) => state.clearCart);
 
-  useEffect(() => {
-    if (!sessionId) {
-      if (!session) {
-        setError("No payment session found. Please place an order first.");
-      }
-      setLoading(false);
-      return;
+  if (!sessionId && loading) {
+    if (!session && !error) {
+      setError("No payment session found. Please place an order first.");
     }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    if (!sessionId) return;
 
     if (session) return;
 

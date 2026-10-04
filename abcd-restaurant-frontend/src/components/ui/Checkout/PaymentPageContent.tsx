@@ -20,15 +20,13 @@ export default function PaymentPageContent() {
   );
   
   // We optionally store an error message if Stripe gave one (e.g., from our own API wrapper)
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+  const [errorMessage] = useState<string | undefined>(
     errorParam === "failed" ? "Insufficient funds. Please use another payment method." : undefined
   );
 
-  useEffect(() => {
-    if (isProcessing) {
-      setPaymentState("loading");
-    }
-  }, [isProcessing]);
+  if (isProcessing && paymentState !== "loading") {
+    setPaymentState("loading");
+  }
 
   // Fix bfcache issue: if user clicks browser Back button from Stripe, reset the state
   useEffect(() => {

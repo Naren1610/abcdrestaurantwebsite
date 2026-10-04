@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
@@ -33,8 +32,9 @@ const MenuItemActions = ({ item }: { item: MenuItem }) => {
         toast.success("Item deleted successfully!");
         setOpen(false);
       },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.detail || "Failed to delete item.");
+      onError: (err: Error) => {
+        const axiosErr = err as import('axios').AxiosError<{detail: string}>;
+        toast.error(axiosErr.response?.data?.detail || "Failed to delete item.");
         setOpen(false);
       }
     });
@@ -80,7 +80,7 @@ const MenuItemActions = ({ item }: { item: MenuItem }) => {
 
 import { Checkbox } from "@/components/ui/checkbox";
 
-export const columns: ColumnDef<MenuItem, any>[] = [
+export const columns: ColumnDef<MenuItem, unknown>[] = [
   {
     id: "drag-handle",
     header: () => null,
@@ -174,7 +174,7 @@ export const columns: ColumnDef<MenuItem, any>[] = [
           )}
           {isChefSpecial && (
             <Badge variant="secondary" className="bg-purple-500/10 text-purple-600 border-purple-200 text-xs font-medium">
-              ⭐ Chef's Special
+              ⭐ Chef&apos;s Special
             </Badge>
           )}
         </div>
@@ -184,7 +184,7 @@ export const columns: ColumnDef<MenuItem, any>[] = [
   {
     id: "actions",
     header: () => <div className="text-right">Actions</div>,
-    cell: ({ row }) => <div className="flex justify-end"><MenuItemActions item={row.original as any} /></div>,
+    cell: ({ row }) => <div className="flex justify-end"><MenuItemActions item={row.original} /></div>,
   },
 ];
 

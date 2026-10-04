@@ -21,14 +21,16 @@ export default function EditCategoryPage() {
   
   const [initialData, setInitialData] = useState<CategoryFormValues | null>(null);
 
-  useEffect(() => {
+  const [prevCategory, setPrevCategory] = useState(category);
+  if (category !== prevCategory) {
+    setPrevCategory(category);
     if (category) {
       setInitialData({
         name: category.name,
         subtitle: category.subtitle || "",
       });
     }
-  }, [category]);
+  }
 
   const handleUpdate = (values: CategoryFormValues) => {
     updateCategory.mutate(
@@ -69,7 +71,7 @@ export default function EditCategoryPage() {
               </div>
               <h3 className="font-playfair text-lg font-semibold text-foreground mb-1">Failed to Load Category</h3>
               <p className="font-outfit text-sm text-muted-foreground max-w-sm mb-6">
-                {(error as any)?.message || "We encountered an issue fetching the category details. Please try again."}
+                {(error as Error)?.message || "We encountered an issue fetching the category details. Please try again."}
               </p>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => router.push("/menu?tab=categories")} className="font-outfit">

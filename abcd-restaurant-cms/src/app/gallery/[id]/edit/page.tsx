@@ -39,7 +39,7 @@ export default function GalleryImageEditPage() {
               </div>
               <h3 className="font-playfair text-lg font-semibold text-foreground mb-1">Failed to Load Image</h3>
               <p className="font-outfit text-sm text-muted-foreground max-w-sm mb-6">
-                {(error as any)?.message || "We encountered an issue fetching the image details. Please try again."}
+                {(error as Error)?.message || "We encountered an issue fetching the image details. Please try again."}
               </p>
               <div className="flex items-center gap-3">
                 <Button variant="outline" onClick={() => router.push("/gallery?tab=images")} className="font-outfit">

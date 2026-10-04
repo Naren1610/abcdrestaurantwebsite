@@ -73,7 +73,7 @@ export default function SecurePaymentCard({
       <p className="font-poppins text-[13.5px] sm:text-[14px] text-[#554D46] leading-relaxed max-w-[310px] mx-auto mb-7">
         {variant === "loading" && (
           <>
-            You'll be redirected to our secure payment gateway.
+            You&apos;ll be redirected to our secure payment gateway.
             <br />
             Please do not close this window.
           </>
@@ -87,7 +87,7 @@ export default function SecurePaymentCard({
         )}
         {variant === "error" && (
           <>
-            We couldn't process your payment.
+            We couldn&apos;t process your payment.
             <br />
             Please try again.
           </>

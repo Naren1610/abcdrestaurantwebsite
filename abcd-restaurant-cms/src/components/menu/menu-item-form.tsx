@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { menuItemSchema, MenuItemFormValues } from "@/lib/schemas";
+import { menuItemSchema, MenuItemFormValues, MenuItemFormInput, MenuItemFormOutput } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import {
@@ -31,7 +31,7 @@ import { useCategories } from "@/hooks/use-menu";
 interface MenuItemFormProps {
   isLoading?: boolean;
   initialData?: MenuItemFormValues | null;
-  onSubmit: (data: MenuItemFormValues) => void;
+  onSubmit: (data: MenuItemFormOutput) => void;
   onCancel: () => void;
 }
 
@@ -39,9 +39,8 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
   const { data: categoriesResponse } = useCategories({ size: 100 });
   const categories = categoriesResponse?.items || [];
 
-    const form = useForm<MenuItemFormValues>({
-    // @ts-ignore
-    resolver: zodResolver(menuItemSchema),
+    const form = useForm<MenuItemFormInput, unknown, MenuItemFormOutput>({
+        resolver: zodResolver(menuItemSchema),
     defaultValues: {
       name: initialData?.name || "",
       description: initialData?.description || "",
@@ -75,13 +74,13 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Column */}
           <div className="lg:col-span-2 space-y-6">
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -95,7 +94,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
             />
 
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
@@ -114,13 +113,13 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="price"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="font-outfit font-semibold">Price ($)</FormLabel>
                     <FormControl>
-                      <Input type="number" step="0.01" placeholder="18.99" {...field} />
+                      <Input type="number" step="0.01" placeholder="18.99" {...field} value={field.value as string | number | undefined ?? ""} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -128,7 +127,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
               />
 
               <FormField
-                control={form.control as any}
+                                control={form.control}
                 name="categoryId"
                 render={({ field }) => (
                   <FormItem>
@@ -158,7 +157,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
             </div>
 
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="tags"
               render={({ field }) => (
                 <FormItem>
@@ -178,7 +177,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
               <h4 className="font-outfit font-semibold mb-4 text-lg">Dietary & Flavor Options</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <FormField
-                  control={form.control as any}
+                                    control={form.control}
                   name="isVeg"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center gap-3">
@@ -201,7 +200,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
                 />
 
                 <FormField
-                  control={form.control as any}
+                                    control={form.control}
                   name="isNonVeg"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center gap-3">
@@ -224,7 +223,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
                 />
 
                 <FormField
-                  control={form.control as any}
+                                    control={form.control}
                   name="isSpicy"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center gap-3">
@@ -244,13 +243,13 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
                 />
 
                 <FormField
-                  control={form.control as any}
+                                    control={form.control}
                   name="isChefSpecial"
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center gap-3">
                       <div className="space-y-0.5">
                         <FormLabel className="font-outfit font-medium flex items-center gap-2 cursor-pointer">
-                          Chef's Special
+                          Chef&apos;s Special
                         </FormLabel>
                       </div>
                       <FormControl>
@@ -270,7 +269,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
           {/* Sidebar Column */}
           <div className="lg:col-span-1 space-y-6 bg-muted/10 p-6 rounded-xl border border-border/50 h-fit">
             <FormField
-              control={form.control as any}
+                            control={form.control}
               name="image"
               render={({ field }) => (
                 <FormItem>

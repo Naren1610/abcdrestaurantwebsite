@@ -31,8 +31,8 @@ export default function SettingsPage() {
       const payload = {
         ...values,
         map_url: values.mapUrl,
-        social_links: values.socialLinks?.map((l: any) => ({ platform: l.platform, url: l.url })) || [],
-        operating_hours: values.operatingHours?.map((h: any) => ({
+        social_links: values.socialLinks?.map((l: { platform: string, url: string }) => ({ platform: l.platform, url: l.url })) || [],
+        operating_hours: values.operatingHours?.map((h: { day: string, hours: string }) => ({
           day: h.day,
           hours: h.hours
         })) || []
@@ -70,15 +70,15 @@ export default function SettingsPage() {
       </div>
     );
   } else {
-    const settings: any = settingsData;
+    const settings = settingsData as { email?: string, phone?: string, address?: string, map_url?: string, social_links?: { platform: string, url: string }[], operating_hours?: { day: string, hours: string }[] };
     // Transform backend snake_case to frontend camelCase
     const initialData = settings ? {
       email: settings.email,
       phone: settings.phone,
       address: settings.address,
       mapUrl: settings.map_url || "",
-      socialLinks: settings.social_links?.map((l: any) => ({ platform: l.platform, url: l.url })) || [],
-      operatingHours: settings.operating_hours?.map((h: any) => ({
+      socialLinks: settings.social_links?.map((l: { platform: string, url: string }) => ({ platform: l.platform, url: l.url })) || [],
+      operatingHours: settings.operating_hours?.map((h: { day: string, hours: string }) => ({
         day: h.day,
         hours: h.hours
       })) || [],
@@ -91,7 +91,7 @@ export default function SettingsPage() {
       operatingHours: [],
     };
 
-    content = <SettingsForm onSubmit={handleSave} initialData={initialData as any} isSaving={mutation.isPending} />;
+    content = <SettingsForm onSubmit={handleSave} initialData={initialData as import('@/lib/schemas').SettingsFormValues} isSaving={mutation.isPending} />;
   }
 
   return (
@@ -100,7 +100,7 @@ export default function SettingsPage() {
         <div>
           <h2 className="text-3xl font-bold font-playfair tracking-tight text-brand">Settings</h2>
           <p className="text-muted-foreground font-outfit mt-1 text-sm">
-            Manage your restaurant's global configuration and your account settings.
+            Manage your restaurant&apos;s global configuration and your account settings.
           </p>
         </div>
         

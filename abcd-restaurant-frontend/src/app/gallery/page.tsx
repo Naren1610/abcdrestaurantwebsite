@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function GalleryPage() {
   return (
-    <main className="flex flex-col min-h-screen bg-background pt-16 sm:pt-20">
+    <main className="flex flex-col min-h-screen bg-background pt-8 sm:pt-12">
       {/* Hero Section */}
       <section className="relative px-6 pb-6 md:pb-8 text-center max-w-4xl mx-auto">
         <h2 className="text-brand-tagline font-outfit uppercase tracking-[0.3em] text-xs sm:text-sm mb-4">

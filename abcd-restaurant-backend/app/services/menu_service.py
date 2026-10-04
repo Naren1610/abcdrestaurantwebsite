@@ -221,4 +221,53 @@ class MenuService:
         await db.commit()
         return {"message": "Menu items reordered successfully"}
 
+
+    async def get_client_menu(self, db: AsyncSession):
+        import re
+        from collections import defaultdict
+        
+        cat_query = select(Category).order_by(Category.display_order)
+        cat_result = await db.execute(cat_query)
+        categories = cat_result.scalars().all()
+        
+        item_query = select(MenuItem).filter(MenuItem.is_active == True).order_by(MenuItem.display_order)
+        item_result = await db.execute(item_query)
+        items = item_result.scalars().all()
+        
+        grouped_items = defaultdict(list)
+        for item in items:
+            tags = []
+            if item.is_veg:
+                tags.append("veg")
+            else:
+                tags.append("non-veg")
+            if item.is_spicy:
+                tags.append("spicy")
+                
+            client_item = {
+                "id": str(item.id),
+                "name": item.name,
+                "description": item.description,
+                "price": item.price,
+                "image": item.image_url,
+                "tags": tags,
+                "isChefPick": item.is_chef_special
+            }
+            grouped_items[item.category_id].append(client_item)
+            
+        result = []
+        for cat in categories:
+            slug = re.sub(r'[^a-z0-9]+', '-', cat.name.lower()).strip('-')
+            cat_items = grouped_items.get(cat.id, [])
+            if cat_items:
+                result.append({
+                    "id": slug,
+                    "title": cat.name,
+                    "subtitle": cat.subtitle,
+                    "items": cat_items
+                })
+                
+        return result
+
+
 menu_service = MenuService()

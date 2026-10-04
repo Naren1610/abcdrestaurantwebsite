@@ -26,7 +26,7 @@ export default function Hero() {
 
           <p className="max-w-[480px] text-[15px] sm:text-[17px] leading-[1.6] font-outfit text-hero-text">
             From aromatic biryanis to soulful curries, every dish is a
-            celebration of India's rich heritage and global flavours.
+            celebration of India&apos;s rich heritage and global flavours.
           </p>
 
           <div className="pt-2">

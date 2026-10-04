@@ -73,7 +73,7 @@ export const columns: ColumnDef<Payment>[] = [
     header: "Status",
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
-      let variant = "default";
+      const variant = "default";
       let className = "font-outfit";
       
       if (status === "Completed") className += " bg-emerald-500/10 text-emerald-600 border-emerald-200 hover:bg-emerald-500/20";

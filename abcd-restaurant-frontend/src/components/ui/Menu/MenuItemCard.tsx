@@ -37,7 +37,7 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
       )}
 
       {/* Image Section */}
-      <div className="relative w-[95px] sm:w-[110px] lg:w-[120px] aspect-square shrink-0 rounded-[12px] overflow-hidden border border-[#C19A6B1A]">
+      <div className="relative w-[95px] sm:w-[110px] lg:w-[120px] aspect-square shrink-0 rounded-[12px] overflow-hidden border border-[#C19A6B1A] bg-[#E6D5B8]/20">
         <SafeImage src={item.image} alt={item.name} fill className="object-cover" />
       </div>
 

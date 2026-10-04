@@ -14,11 +14,13 @@ export function SessionExpiryAlert({ countdown, onLogout, maxTime = 90 }: Sessio
   const [isMinimized, setIsMinimized] = useState(false);
 
   // Auto-expand if countdown just appeared
-  useEffect(() => {
-    if (countdown !== null && countdown === maxTime) {
+  const [prevCountdown, setPrevCountdown] = useState(countdown);
+  if (countdown !== prevCountdown) {
+    setPrevCountdown(countdown);
+    if (countdown !== null && countdown === maxTime && isMinimized) {
       setIsMinimized(false);
     }
-  }, [countdown, maxTime]);
+  }
 
   const radius = 22;
   const circumference = 2 * Math.PI * radius;

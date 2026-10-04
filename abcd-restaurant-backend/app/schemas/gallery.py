@@ -53,3 +53,15 @@ class GalleryImageResponse(GalleryImageBase):
 class GalleryCategoryReorder(BaseModel):
     id: int
     display_order: int
+
+
+# --- Client (BFF) Schemas ---
+class ClientGalleryImage(BaseModel):
+    id: int
+    image_url: str
+    title: str
+    category_name: str
+
+class ClientGalleryResponse(BaseModel):
+    categories: List[str]
+    images: List[ClientGalleryImage]

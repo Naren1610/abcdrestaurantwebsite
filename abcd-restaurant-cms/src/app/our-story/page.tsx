@@ -17,7 +17,7 @@ export default function AboutContentPage() {
         <div>
           <h2 className="text-3xl font-bold font-playfair tracking-tight text-brand">Our Story Content</h2>
           <p className="text-muted-foreground font-outfit mt-2 text-sm">
-            Manage your restaurant's story, history, and chef biographies.
+            Manage your restaurant&apos;s story, history, and chef biographies.
           </p>
         </div>
         

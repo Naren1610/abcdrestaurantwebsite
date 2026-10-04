@@ -42,7 +42,7 @@ export function AccountSettingsForm() {
   const [showNewPassword, setShowNewPassword] = useState(false);
 
   const infoForm = useForm<AccountInfoValues>({
-    resolver: zodResolver(accountInfoSchema),
+        resolver: zodResolver(accountInfoSchema),
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
@@ -50,7 +50,7 @@ export function AccountSettingsForm() {
   });
 
   const passwordForm = useForm<PasswordValues>({
-    resolver: zodResolver(passwordSchema),
+        resolver: zodResolver(passwordSchema),
     defaultValues: {
       currentPassword: "",
       newPassword: "",

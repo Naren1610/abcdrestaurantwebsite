@@ -66,3 +66,21 @@ class ReorderItem(BaseModel):
 
 class BulkReorder(BaseModel):
     items: List[ReorderItem]
+
+
+# --- Client (BFF) Schemas ---
+class ClientMenuItemResponse(BaseModel):
+    id: str
+    name: str
+    description: Optional[str] = None
+    price: float
+    image: Optional[str] = None
+    tags: List[str]
+    isChefPick: bool
+
+class ClientMenuCategoryResponse(BaseModel):
+    id: str
+    title: str
+    subtitle: Optional[str] = None
+    items: List[ClientMenuItemResponse]
+

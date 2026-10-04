@@ -25,8 +25,9 @@ export function MenuItemActions({ item }: { item: MenuItem }) {
         toast.success("Menu item deleted successfully!");
         setOpen(false);
       },
-      onError: (err: any) => {
-        toast.error(err?.response?.data?.detail || "Failed to delete menu item.");
+      onError: (err: Error) => {
+        const axiosErr = err as import('axios').AxiosError<{detail: string}>;
+        toast.error(axiosErr.response?.data?.detail || "Failed to delete menu item.");
         setOpen(false);
       },
     });
