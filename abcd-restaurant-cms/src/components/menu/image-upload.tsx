@@ -36,11 +36,19 @@ export function ImageUpload({ value, onChange, aspectRatio = "auto", className =
       setPreview(objectUrl);
 
       // 1. Get Signature from Backend
-      const sigResponse = await apiClient.post("/upload/signature", {
+      interface SignatureResponse {
+        signature: string;
+        timestamp: number;
+        public_id: string;
+        folder: string;
+        api_key: string;
+        cloud_name: string;
+      }
+      const sigResponse = await apiClient.post<never, SignatureResponse>("/upload/signature", {
         entity_type: "menu",
         entity_name: file.name.split('.')[0] || "image",
       });
-      const { signature, timestamp, public_id, folder, api_key, cloud_name } = (sigResponse as unknown as import('axios').AxiosResponse<{ signature: string, timestamp: number, public_id: string, folder: string, api_key: string, cloud_name: string }>).data;
+      const { signature, timestamp, public_id, folder, api_key, cloud_name } = sigResponse;
 
       // 2. Prepare Cloudinary FormData
       const formData = new FormData();

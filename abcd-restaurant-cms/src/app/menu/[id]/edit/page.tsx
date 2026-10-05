@@ -1,4 +1,5 @@
 "use client";
+import { AxiosError } from 'axios';
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { MenuItemForm } from "@/components/menu/menu-item-form";
@@ -21,9 +22,7 @@ export default function EditMenuItemPage() {
 
   const [initialData, setInitialData] = useState<MenuItemFormValues | null>(null);
 
-  const [prevItem, setPrevItem] = useState(item);
-  if (item !== prevItem) {
-    setPrevItem(item);
+  useEffect(() => {
     if (item) {
       setInitialData({
         name: item.name,
@@ -38,7 +37,7 @@ export default function EditMenuItemPage() {
         image: item.image_url || "",
       });
     }
-  }
+  }, [item]);
 
   const handleUpdate = (values: MenuItemFormValues) => {
     updateMenuItem.mutate(
@@ -60,8 +59,10 @@ export default function EditMenuItemPage() {
           toast.success("Menu item updated successfully!");
           router.push("/menu?tab=items");
         },
-        onError: () => {
-          toast.error("Failed to update menu item. Please try again.");
+        onError: (error: unknown) => {
+          const axiosError = error as AxiosError<{"detail": string}>;
+          const message = axiosError.response?.data?.detail || "Failed to update menu item. Please try again.";
+          toast.error(message);
         },
       }
     );

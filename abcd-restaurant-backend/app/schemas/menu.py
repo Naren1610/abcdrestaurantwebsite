@@ -41,7 +41,7 @@ class MenuItemUpdate(BaseModel):
     name: Optional[str] = Field(None, max_length=200)
     description: Optional[str] = None
     price: Optional[float] = Field(None, gt=0)
-    image_url: str
+    image_url: Optional[str] = None
     is_veg: Optional[bool] = None
     is_spicy: Optional[bool] = None
     is_chef_special: Optional[bool] = None

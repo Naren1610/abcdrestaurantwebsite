@@ -115,7 +115,7 @@ export const columns: ColumnDef<MenuItem, unknown>[] = [
       const name = row.getValue("name") as string;
       return (
         <Avatar className="h-10 w-10 rounded-md">
-          <AvatarImage src={image} alt={name} className="object-cover" />
+          {image && <AvatarImage src={image} alt={name} className="object-cover" />}
           <AvatarFallback className="rounded-md bg-muted text-xs">IMG</AvatarFallback>
         </Avatar>
       );

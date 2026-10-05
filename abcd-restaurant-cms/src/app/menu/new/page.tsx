@@ -1,4 +1,5 @@
 "use client";
+import { AxiosError } from 'axios';
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { MenuItemForm } from "@/components/menu/menu-item-form";
@@ -31,8 +32,10 @@ export default function NewMenuItemPage() {
           toast.success("Menu item created successfully!");
           router.push("/menu?tab=items");
         },
-        onError: () => {
-          toast.error("Failed to create menu item. Please try again.");
+        onError: (error: unknown) => {
+          const axiosError = error as AxiosError<{"detail": string}>;
+          const message = axiosError.response?.data?.detail || "Failed to create menu item. Please try again.";
+          toast.error(message);
         },
       }
     );

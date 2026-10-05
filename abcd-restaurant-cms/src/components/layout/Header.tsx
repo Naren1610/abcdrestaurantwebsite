@@ -29,7 +29,7 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger className="focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 rounded-full cursor-pointer">
             <Avatar className="h-9 w-9 shadow-sm border border-border/50 transition-transform hover:scale-105">
-              <AvatarImage src="" alt={user?.name || "Admin"} />
+              <AvatarImage src={undefined} alt={user?.name || "Admin"} />
               <AvatarFallback className="bg-brand text-white font-medium text-sm">
                 {user?.name ? user.name.charAt(0).toUpperCase() : "A"}
               </AvatarFallback>

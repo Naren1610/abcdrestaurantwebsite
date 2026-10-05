@@ -153,6 +153,15 @@ class MenuService:
         if not category:
             raise HTTPException(status_code=404, detail="Category not found")
             
+        # Check for duplicates (case-insensitive, trimmed)
+        dup_query = select(MenuItem).filter(
+            MenuItem.category_id == item_in.category_id,
+            func.lower(func.trim(MenuItem.name)) == item_in.name.strip().lower()
+        )
+        dup_result = await db.execute(dup_query)
+        if dup_result.scalar_one_or_none():
+            raise HTTPException(status_code=400, detail="A menu item with this name already exists in this category.")
+            
         data = item_in.model_dump()
         if data.get('image_url'):
             data['image_url'] = str(data['image_url'])
@@ -176,8 +185,23 @@ class MenuService:
             category = await db.get(Category, item_in.category_id)
             if not category:
                 raise HTTPException(status_code=404, detail="Category not found")
-        
+                
         update_data = item_in.model_dump(exclude_unset=True)
+        
+        # Check for duplicates if name or category changes
+        new_name = update_data.get('name', db_item.name)
+        new_cat_id = update_data.get('category_id', db_item.category_id)
+        
+        if 'name' in update_data or 'category_id' in update_data:
+            dup_query = select(MenuItem).filter(
+                MenuItem.id != item_id,
+                MenuItem.category_id == new_cat_id,
+                func.lower(func.trim(MenuItem.name)) == new_name.strip().lower()
+            )
+            dup_result = await db.execute(dup_query)
+            if dup_result.scalar_one_or_none():
+                raise HTTPException(status_code=400, detail="A menu item with this name already exists in this category.")
+        
         if 'image_url' in update_data and update_data['image_url'] is not None:
             update_data['image_url'] = str(update_data['image_url'])
             if db_item.image_url and db_item.image_url != update_data['image_url']:

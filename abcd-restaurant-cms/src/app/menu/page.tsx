@@ -19,7 +19,7 @@ import { ConfirmDeleteDialog } from "@/components/ui/confirm-delete-dialog";
 
 const CategorySubItems = ({ categoryId }: { categoryId: number }) => {
   const { data, isLoading, isError } = useMenuItems({ page: 1, size: 50, category_id: categoryId });
-  if (isLoading) return <div className="p-4 text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin"/> Loading items...</div>;
+  if (isLoading) return <div className="py-6 flex items-center justify-center text-sm font-outfit text-muted-foreground gap-2"><Loader2 className="h-4 w-4 animate-spin"/> Loading items...</div>;
   if (isError) return <div className="p-4 text-sm text-destructive">Failed to load items.</div>;
   if (!data?.items?.length) return <div className="p-8 text-center text-sm font-outfit text-muted-foreground">No items in this category.</div>;
 

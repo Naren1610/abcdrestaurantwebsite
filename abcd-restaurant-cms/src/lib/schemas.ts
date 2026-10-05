@@ -1,12 +1,12 @@
 import * as z from "zod";
 
 export const menuItemSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters."),
+  name: z.string().trim().min(2, "Name must be at least 2 characters."),
   description: z.string().min(10, "Description must be at least 10 characters."),
   price: z.coerce.number().min(0.01, "Price must be greater than 0."),
   categoryId: z.string().min(1, "Please select a category."),
   tags: z.string().optional(), // We'll parse this into an array
-  image: z.string().min(1, "Image is required."),
+  image: z.string().optional(),
   isSpicy: z.boolean().default(false),
   isVeg: z.boolean().default(false),
   isNonVeg: z.boolean().default(false),
