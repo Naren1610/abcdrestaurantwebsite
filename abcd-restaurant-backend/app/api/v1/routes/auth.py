@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy import func
 from sqlalchemy.orm import selectinload
 from app.database.session import get_db
 from app.api.deps import get_current_user
@@ -13,7 +14,8 @@ router = APIRouter()
 
 @router.post("/login")
 async def login(response: Response, login_data: UserLogin, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(select(User).filter(User.email == login_data.email))
+    clean_email = login_data.email.strip().lower()
+    result = await db.execute(select(User).filter(func.lower(func.trim(User.email)) == clean_email))
     user = result.scalars().first()
     
     if not user or not verify_password(login_data.password, user.hashed_password):
@@ -27,16 +29,24 @@ async def login(response: Response, login_data: UserLogin, db: AsyncSession = De
 
     access_token = create_access_token(subject=user.id)
     
+    # Session expiry: 5 hours (18,000 seconds)
+    SESSION_EXPIRE_SECONDS = 18000
+
     response.set_cookie(
         key="access_token",
         value=f"Bearer {access_token}",
         httponly=True,
-        max_age=3600,
-        expires=3600,
+        max_age=SESSION_EXPIRE_SECONDS,
+        expires=SESSION_EXPIRE_SECONDS,
         samesite="none",
         secure=True,
     )
-    return {"message": "Successfully logged in", "access_token": access_token, "token_type": "bearer", "expires_in": 3600}
+    return {
+        "message": "Successfully logged in",
+        "access_token": access_token,
+        "token_type": "bearer",
+        "expires_in": SESSION_EXPIRE_SECONDS,
+    }
 
 @router.post("/logout")
 async def logout(response: Response):

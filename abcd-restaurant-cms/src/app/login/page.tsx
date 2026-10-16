@@ -75,7 +75,7 @@ export default function LoginPage() {
       if (resData?.access_token) {
         localStorage.setItem("access_token", resData.access_token);
       }
-      const expiresIn = resData?.expires_in;
+      const expiresIn = resData?.expires_in || 18000;
       if (expiresIn) {
         localStorage.setItem("session_expires_at", (Date.now() + expiresIn * 1000).toString());
       }

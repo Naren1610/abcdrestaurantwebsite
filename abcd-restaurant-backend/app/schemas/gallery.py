@@ -65,3 +65,14 @@ class ClientGalleryImage(BaseModel):
 class ClientGalleryResponse(BaseModel):
     categories: List[str]
     images: List[ClientGalleryImage]
+
+class ClientGalleryTopPick(BaseModel):
+    id: int
+    image_url: str
+    caption: Optional[str] = None
+    title: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+

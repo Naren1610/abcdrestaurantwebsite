@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { CategoryForm } from "@/components/categories/category-form";
@@ -16,7 +16,12 @@ export default function NewCategoryPage() {
 
   const handleCreate = (values: CategoryFormValues) => {
     createCategory.mutate(
-      { name: values.name, subtitle: values.subtitle || null, display_order: 0 },
+      {
+        name: values.name,
+        subtitle: values.subtitle || null,
+        display_order: 0,
+        letter_group: values.letter_group || null,
+      },
       {
         onSuccess: () => {
           toast.success("Category created successfully!");

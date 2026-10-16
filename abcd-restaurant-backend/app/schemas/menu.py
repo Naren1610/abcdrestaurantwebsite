@@ -1,11 +1,12 @@
 from pydantic import BaseModel, Field, HttpUrl
-from typing import Optional, List
+from typing import Optional, List, Literal
 
 # --- Category Schemas ---
 class CategoryBase(BaseModel):
     name: str = Field(..., max_length=100)
     subtitle: Optional[str] = Field(None, max_length=200)
     display_order: int = 0
+    letter_group: Optional[Literal['A', 'B', 'C', 'D']] = None
 
 class CategoryCreate(CategoryBase):
     pass
@@ -14,6 +15,7 @@ class CategoryUpdate(BaseModel):
     name: Optional[str] = Field(None, max_length=100)
     subtitle: Optional[str] = Field(None, max_length=200)
     display_order: Optional[int] = None
+    letter_group: Optional[Literal['A', 'B', 'C', 'D']] = None
 
 class CategoryResponse(CategoryBase):
     id: int
@@ -30,6 +32,7 @@ class MenuItemBase(BaseModel):
     is_veg: bool = False
     is_spicy: bool = False
     is_chef_special: bool = False
+    is_signature_dish: bool = False
     is_active: bool = True
     display_order: int = 0
     category_id: int
@@ -45,6 +48,7 @@ class MenuItemUpdate(BaseModel):
     is_veg: Optional[bool] = None
     is_spicy: Optional[bool] = None
     is_chef_special: Optional[bool] = None
+    is_signature_dish: Optional[bool] = None
     is_active: Optional[bool] = None
     display_order: Optional[int] = None
     category_id: Optional[int] = None
@@ -77,10 +81,12 @@ class ClientMenuItemResponse(BaseModel):
     image: Optional[str] = None
     tags: List[str]
     isChefPick: bool
+    isSignatureDish: bool = False
 
 class ClientMenuCategoryResponse(BaseModel):
     id: str
     title: str
     subtitle: Optional[str] = None
+    letter_group: Optional[str] = None
     items: List[ClientMenuItemResponse]
 

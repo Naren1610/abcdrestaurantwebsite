@@ -8,8 +8,12 @@ import Step2PartySize from "./Step2PartySize";
 import Step3Details from "./Step3Details";
 import ReservationSummary from "./ReservationSummary";
 import { CheckCircle2, Calendar, Users, Clock, ArrowRight } from "lucide-react";
+import { useSettings } from "@/hooks/use-settings";
 
 export default function ReservationSection() {
+  const { data: settings } = useSettings();
+  const isReservationsEnabled = settings?.is_table_reservation_enabled ?? true;
+  const restaurantPhone = settings?.phone || "+1 (555) 234-5678";
   const [currentStep, setCurrentStep] = useState<number>(1);
   const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
@@ -51,6 +55,30 @@ export default function ReservationSection() {
     return (
       <section className="relative w-full bg-background pb-16 sm:pb-24 pt-2 min-h-[600px] flex items-center justify-center">
         <div className="w-8 h-8 rounded-full border-4 border-brand/20 border-t-brand animate-spin" />
+      </section>
+    );
+  }
+
+  if (!isReservationsEnabled) {
+    return (
+      <section className="relative w-full bg-background py-16 sm:py-24 px-4 sm:px-6">
+        <div className="max-w-[620px] mx-auto bg-[#FAF8F2] rounded-[17.6px] p-8 sm:p-12 border border-[#DFC9A880] text-center shadow-[0_4px_24px_rgba(81,25,35,0.04)] animate-in fade-in duration-300">
+          <div className="w-16 h-16 rounded-full bg-[#511923]/10 text-[#511923] flex items-center justify-center mx-auto mb-6">
+            <Calendar className="w-8 h-8 text-[#511923]" />
+          </div>
+          <h2 className="font-playfair text-3xl font-bold text-[#511923] mb-3">
+            Online Reservations Paused
+          </h2>
+          <p className="font-outfit text-[#6B5F60] text-sm sm:text-base leading-relaxed max-w-md mx-auto mb-8">
+            We are currently accepting table reservations exclusively by phone. Please call our host directly to secure your table and discuss any special requests.
+          </p>
+          <a
+            href={`tel:${restaurantPhone.replace(/[^0-9+]/g, '')}`}
+            className="inline-flex items-center justify-center gap-2.5 bg-[#511923] text-white font-outfit font-medium text-base px-8 py-3.5 rounded-[14px] hover:bg-[#40131B] transition-colors shadow-sm active:scale-95 cursor-pointer"
+          >
+            Call {restaurantPhone}
+          </a>
+        </div>
       </section>
     );
   }

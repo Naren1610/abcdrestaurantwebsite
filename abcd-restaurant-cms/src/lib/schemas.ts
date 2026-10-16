@@ -11,6 +11,7 @@ export const menuItemSchema = z.object({
   isVeg: z.boolean().default(false),
   isNonVeg: z.boolean().default(false),
   isChefSpecial: z.boolean().default(false),
+    isSignatureDish: z.boolean().default(false),
 }).refine((data) => data.isVeg || data.isNonVeg, {
   message: "Please select either Veg or Non-Veg.",
   path: ["isVeg"],
@@ -23,6 +24,7 @@ export type MenuItemFormValues = MenuItemFormOutput;
 export const categorySchema = z.object({
   name: z.string().min(2, { message: "Category name must be at least 2 characters." }),
   subtitle: z.string().optional(),
+  letter_group: z.enum(["A", "B", "C", "D"]).nullable().optional(),
 });
 
 export type CategoryFormValues = z.infer<typeof categorySchema>;
@@ -38,18 +40,19 @@ export const homeContentSchema = z.object({
 
 export type HomeContentFormValues = z.infer<typeof homeContentSchema>;
 
+export const teamMemberItemSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().min(1, "Name is required"),
+  role: z.string().min(1, "Role is required"),
+  description: z.string().optional().default(""),
+  image: z.string().optional().default(""),
+});
+
 export const ourStorySchema = z.object({
-  storyHeadline: z.string().min(2, "Headline is required."),
+  storyHeadline: z.string().optional(),
   storyContent: z.string().optional(),
   storyImage: z.string().optional(),
-  teamMembers: z.array(z.object({
-    name: z.string().min(1, "Name is required"),
-    role: z.string().min(1, "Role is required"),
-    description: z.string().optional(),
-    image: z.string().optional(),
-    facebookUrl: z.string().optional(),
-    instagramUrl: z.string().optional(),
-  })).optional(),
+  teamMembers: z.array(teamMemberItemSchema).default([]),
 });
 
 export type OurStoryFormValues = z.infer<typeof ourStorySchema>;
@@ -59,6 +62,8 @@ export const settingsSchema = z.object({
   phone: z.string().min(5, "Phone is required."),
   address: z.string().min(5, "Address is required."),
   mapUrl: z.string().optional(),
+  isOnlineOrderingEnabled: z.boolean(),
+  isTableReservationEnabled: z.boolean(),
   socialLinks: z.array(z.object({
     platform: z.string().min(1, "Platform name is required"),
     url: z.string().url("Must be a valid URL"),
@@ -70,3 +75,5 @@ export const settingsSchema = z.object({
 });
 
 export type SettingsFormValues = z.infer<typeof settingsSchema>;
+
+

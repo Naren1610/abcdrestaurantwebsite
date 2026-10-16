@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { outfit, playfairDisplay, inter, cinzel, lato, poppins } from "@/lib/fonts";
 import { QueryProvider } from "@/providers/query-provider";
 import Header from "@/components/layout/Header";

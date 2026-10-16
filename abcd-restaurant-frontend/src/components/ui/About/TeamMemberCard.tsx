@@ -1,92 +1,54 @@
 import Image from "next/image";
-import Link from "next/link";
-
-export type TeamMember = {
-  name: string;
-  role: string;
-  description: string;
-  image: string;
-  facebookUrl?: string;
-  instagramUrl?: string;
-};
+import type { TeamMember } from "@/types/api/team";
 
 interface TeamMemberCardProps {
   member: TeamMember;
 }
 
 export default function TeamMemberCard({ member }: TeamMemberCardProps) {
+  const imageSrc =
+    member.image_url && member.image_url.trim() !== ""
+      ? member.image_url
+      : "/images/about/chef-image.png";
+
   return (
     <div
-      className="flex flex-row items-stretch rounded-[20px] overflow-hidden transition-transform duration-300 hover:-translate-y-1 border border-[#B98F5629]"
+      className="flex flex-row items-stretch rounded-[20px] overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-md border border-[#B98F5629] min-h-[250px] sm:min-h-[270px] lg:min-h-[280px] h-full"
       style={{ backgroundColor: "#f7efe1" }}
     >
       {/* Left Column: Member Photo */}
-      <div className="relative w-[42%] sm:w-[44%] shrink-0 overflow-hidden rounded-r-[18px]">
+      <div suppressHydrationWarning className="relative w-[40%] sm:w-[42%] shrink-0 overflow-hidden rounded-r-[18px]">
         <Image
-          src={member.image}
+          src={imageSrc}
           alt={member.name}
           fill
+          sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 20vw"
+          priority={false}
           className="object-cover object-top select-none"
         />
       </div>
 
-      {/* Right Column: Member Details */}
-      <div className="flex flex-col justify-between p-5 lg:p-6 w-[58%] sm:w-[56%]">
-        <div>
-          {/* Name (20px, Playfair Display) */}
-          <h3 className="font-playfair-display text-[20px] font-normal leading-[1.2] text-[#511923]">
-            {member.name}
-          </h3>
+      {/* Right Column: Content starts from the top (justify-start) with reduced spacing */}
+      <div className="flex flex-col justify-start p-4 sm:p-5 lg:p-5 w-[60%] sm:w-[58%] overflow-hidden">
+        {/* Name (Full name display without ellipsis) */}
+        <h3 className="font-playfair-display text-[20px] sm:text-[22px] font-normal leading-[1.2] text-[#511923]">
+          {member.name}
+        </h3>
 
-          {/* Role (12px, Inter, Semi Bold) */}
-          <p className="mt-1 font-inter text-[12px] font-semibold uppercase tracking-[0.12em] text-[#B98F56]">
-            {member.role}
+        {/* Role (Full role display without ellipsis) */}
+        <p className="mt-1 font-inter text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.1em] text-[#B98F56]">
+          {member.role}
+        </p>
+
+        {/* Story / Biography (Refined smaller text size, starting from top, with '...' if very long) */}
+        {member.bio && member.bio.trim() !== "" && (
+          <p
+            title={member.bio}
+            className="mt-2.5 font-inter text-[12.5px] sm:text-[13px] font-normal leading-[1.55] text-[#6B5E59] line-clamp-8"
+          >
+            {member.bio}
           </p>
-
-          {/* Description (14px, Inter, Regular) */}
-          <p className="mt-3.5 font-inter text-[14px] font-normal leading-[1.6] text-[#6B5E59]">
-            {member.description}
-          </p>
-        </div>
-
-        {/* Social Links */}
-        <div className="mt-5 flex items-center gap-3">
-          {member.facebookUrl && (
-            <Link
-              href={member.facebookUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${member.name} Facebook`}
-              className="opacity-90 transition-opacity hover:opacity-100 hover:scale-110"
-            >
-              <Image
-                src="/images/about/Facebook.svg"
-                alt="Facebook"
-                width={16}
-                height={16}
-                className="w-4 h-4 object-contain"
-              />
-            </Link>
-          )}
-
-          {member.instagramUrl && (
-            <Link
-              href={member.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${member.name} Instagram`}
-              className="opacity-90 transition-opacity hover:opacity-100 hover:scale-110"
-            >
-              <Image
-                src="/images/about/Instagram.svg"
-                alt="Instagram"
-                width={16}
-                height={16}
-                className="w-4 h-4 object-contain"
-              />
-            </Link>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

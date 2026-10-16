@@ -10,7 +10,7 @@ export default function DineInTable() {
       <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row items-center justify-start gap-10 lg:gap-14 xl:gap-16">
           {/* Left Column: Desktop Dining Area Image (Visible on lg+) */}
-          <div className="hidden lg:block relative w-full max-w-[500px] lg:max-w-[540px] xl:max-w-[560px] h-[350px] shrink-0 overflow-hidden rounded-[20px] lg:rounded-[24px] shadow-sm">
+          <div suppressHydrationWarning className="hidden lg:block relative w-full max-w-[500px] lg:max-w-[540px] xl:max-w-[560px] h-[350px] shrink-0 overflow-hidden rounded-[20px] lg:rounded-[24px] shadow-sm">
             <Image
               src="/images/about/dining-area.png"
               alt="ABCD Restaurant Dining Area"
@@ -44,7 +44,7 @@ export default function DineInTable() {
             </h2>
 
             {/* Mobile/Tablet Dining Area Image (Between Title and Description on small & medium screens) */}
-            <div className="lg:hidden my-6 relative w-full h-[250px] sm:h-[320px] md:h-[380px] overflow-hidden rounded-[20px] shadow-sm">
+            <div suppressHydrationWarning className="lg:hidden my-6 relative w-full h-[250px] sm:h-[320px] md:h-[380px] overflow-hidden rounded-[20px] shadow-sm">
               <Image
                 src="/images/about/dining-area.png"
                 alt="ABCD Restaurant Dining Area"

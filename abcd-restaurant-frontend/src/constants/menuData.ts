@@ -1,4 +1,4 @@
-﻿import { MenuCategory } from "@/types/menu";
+import { MenuCategory } from "@/types/menu";
 
 import { getImageUrl } from "@/lib/services/cloudinary";
 

@@ -64,6 +64,8 @@ export const menuItemApi = {
     category_id?: number;
     is_vegetarian?: boolean;
     is_spicy?: boolean;
+    is_chef_special?: boolean;
+    is_signature_dish?: boolean;
   }) => 
     apiClient.get<never, PaginatedResponse<MenuItem>>('/menu/items', { params }),
 

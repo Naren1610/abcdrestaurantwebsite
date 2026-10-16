@@ -27,3 +27,10 @@ export function useClientMenu() {
     queryFn: menuApi.getClientMenu,
   });
 }
+
+export function useSignatureDishes() {
+  return useQuery({
+    queryKey: ['signature-dishes'] as const,
+    queryFn: menuApi.getSignatureDishes,
+  });
+}

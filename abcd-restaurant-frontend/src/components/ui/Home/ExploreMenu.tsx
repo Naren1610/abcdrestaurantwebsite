@@ -1,18 +1,72 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ArrowRightIcon from "@/components/ui/ArrowRightIcon";
+import { useClientMenu } from "@/hooks/use-menu";
 
-const CATEGORIES = [
-  { name: "Appetizers", image: "appetizers.png" },
-  { name: "Biryani & Bread", image: "biryani-and-bread.png" },
-  { name: "Curries", image: "curries.png" },
-  { name: "Indo-Chinese", image: "indo-chinese.png" },
-  { name: "Dragon & Spice", image: "dragon-and-spice.png" },
-  { name: "Desserts", image: "desserts.png" },
-  { name: "Drinks", image: "drinks.png" },
+interface CategoryBarItem {
+  name: string;
+  image: string;
+  defaultTarget: string;
+  match: (title: string, letterGroup?: string | null) => boolean;
+}
+
+const CATEGORIES: CategoryBarItem[] = [
+  {
+    name: "Appetizers",
+    image: "appetizers.png",
+    defaultTarget: "desi-chaat-andhra-bajji",
+    match: (_, group) => group === "A",
+  },
+  {
+    name: "Biryani & Bread",
+    image: "biryani-and-bread.png",
+    defaultTarget: "biryanis-pulavs",
+    match: (_, group) => group === "B",
+  },
+  {
+    name: "Curries",
+    image: "curries.png",
+    defaultTarget: "curries-entrees",
+    match: (title) => /curri|entree/i.test(title),
+  },
+  {
+    name: "Indo-Chinese",
+    image: "indo-chinese.png",
+    defaultTarget: "indo-chinese-appetizers",
+    match: (title) => /indo.*appetizer/i.test(title) || (/indo/i.test(title) && !/wok|fire|noodle/i.test(title)),
+  },
+  {
+    name: "Dragon & Spice",
+    image: "dragon-and-spice.png",
+    defaultTarget: "indo-chinese-wok-fire-noodles-fried-rice",
+    match: (title) => /wok|fire|noodle|dragon/i.test(title),
+  },
+  {
+    name: "Desserts",
+    image: "desserts.png",
+    defaultTarget: "desserts",
+    match: (title) => /dessert/i.test(title),
+  },
+  {
+    name: "Drinks",
+    image: "drinks.png",
+    defaultTarget: "drinks-refreshments",
+    match: (title) => /drink|refreshment|beverage/i.test(title),
+  },
 ];
 
 export default function ExploreMenu() {
+  const { data: menuData } = useClientMenu();
+
+  const getCategoryBarTarget = (item: CategoryBarItem): string => {
+    if (!menuData || menuData.length === 0) return item.defaultTarget;
+    const cat = menuData.find((c) => item.match(c.title, c.letter_group));
+    return cat ? cat.id : item.defaultTarget;
+  };
+
   return (
     <section className="relative w-full py-8 lg:py-12">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-10">
@@ -27,26 +81,38 @@ export default function ExploreMenu() {
             <div className="h-px bg-[#DFBE88] flex-1 opacity-60 min-w-[20px]"></div>
           </div>
 
-          {/* Categories Horizontal Scroll Area */}
+          {/* Categories Horizontal Scroll Area with Dynamic Letter & Category Links */}
           <div className="flex flex-nowrap overflow-x-auto scrollbar-hide w-full gap-2 sm:gap-3.5 lg:gap-0 lg:divide-x lg:divide-[#DFC9A8] mb-8 sm:mb-10 px-1 sm:px-2 lg:px-0 scroll-smooth">
-            {CATEGORIES.map((category) => (
-              <Link
-                key={category.name}
-                href="/menu"
-                className="group flex flex-col items-center justify-center shrink-0 w-[76px] sm:w-[90px] lg:w-auto lg:flex-1 transition-transform hover:-translate-y-1.5 duration-300 px-0.5 sm:px-1"
-              >
-                <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mb-2 sm:mb-3">
-                  <Image src={`/images/home/menu-categories/${category.image}`} alt={category.name} fill className="object-contain" />
-                </div>
-                <span className="font-outfit font-semibold text-[12px] sm:text-[13px] lg:text-[15px] text-[#6B5F60] group-hover:text-brand transition-colors text-center leading-tight">
-                  {category.name}
-                </span>
-              </Link>
-            ))}
+            {CATEGORIES.map((category) => {
+              const targetId = getCategoryBarTarget(category);
+              return (
+                <Link
+                  key={category.name}
+                  href={`/menu#${targetId}`}
+                  className="group flex flex-col items-center justify-center shrink-0 w-[76px] sm:w-[90px] lg:w-auto lg:flex-1 transition-transform hover:-translate-y-1.5 duration-300 px-0.5 sm:px-1"
+                >
+                  <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 mb-2 sm:mb-3">
+                    <Image
+                      src={`/images/home/menu-categories/${category.image}`}
+                      alt={category.name}
+                      fill
+                      sizes="(max-width: 640px) 56px, (max-width: 1024px) 64px, 80px"
+                      className="object-contain drop-shadow-sm"
+                    />
+                  </div>
+                  <span className="font-outfit font-semibold text-[12px] sm:text-[13px] lg:text-[15px] text-[#6B5F60] group-hover:text-brand transition-colors text-center leading-tight">
+                    {category.name}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* View Full Menu Link */}
-          <Link href="/menu" className="group flex items-center gap-2 font-outfit font-bold text-[14px] sm:text-[15px] lg:text-[16px] text-brand hover:text-brand-tagline transition-colors">
+          <Link
+            href="/menu"
+            className="group flex items-center gap-2 font-outfit font-bold text-[14px] sm:text-[15px] lg:text-[16px] text-brand hover:text-brand-tagline transition-colors"
+          >
             View Full Menu
             <ArrowRightIcon className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
           </Link>

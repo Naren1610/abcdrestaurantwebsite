@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { HomeContentForm } from "@/components/content/home-content-form";

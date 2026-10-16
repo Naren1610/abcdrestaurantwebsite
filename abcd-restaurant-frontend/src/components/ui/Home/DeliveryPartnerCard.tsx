@@ -28,10 +28,10 @@ export default function DeliveryPartnerCard({
 
       {/* Button Area (Bottom Part) */}
       <a
-        href="#"
+        href=""
         className="w-full bg-[#4e121e] h-[48px] flex items-center justify-center rounded-[24px] text-white font-inter font-medium text-[13px] sm:text-[14px] hover:bg-[#3d0e17] transition-colors relative z-10 -mt-[24px]"
       >
-        Order on {name}
+        Partners
       </a>
     </div>
   );

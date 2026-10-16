@@ -1,11 +1,15 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSettings } from "@/hooks/use-settings";
 import CartPill from "./CartPill";
 import CartDrawer from "./CartDrawer";
 
 function CartContainerInner() {
+  const { data: settings } = useSettings();
+  const isOnlineOrderingEnabled = settings?.is_online_ordering_enabled ?? false;
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -32,6 +36,11 @@ function CartContainerInner() {
     const query = params.toString();
     router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
+
+  // If online ordering is paused, suppress both the floating pill and drawer
+  if (!isOnlineOrderingEnabled) {
+    return null;
+  }
 
   return (
     <>

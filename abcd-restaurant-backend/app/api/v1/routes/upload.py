@@ -1,4 +1,4 @@
-﻿import re
+import re
 from uuid import uuid4
 from fastapi import APIRouter, HTTPException, Depends
 from app.schemas.upload import UploadSignatureRequest, UploadSignatureResponse

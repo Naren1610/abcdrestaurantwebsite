@@ -20,7 +20,7 @@ export default function MenuSection({
   onToggle,
 }: MenuSectionProps) {
   return (
-    <section id={id} className="w-full bg-background">
+    <section id={id} className="w-full bg-background scroll-mt-20 md:scroll-mt-24">
       {/* Mobile/tablet: compact toggle header */}
       <button
         type="button"

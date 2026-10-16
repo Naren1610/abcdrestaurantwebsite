@@ -103,6 +103,8 @@ export function useMenuItems(params?: {
   category_id?: number;
   is_vegetarian?: boolean;
   is_spicy?: boolean;
+  is_chef_special?: boolean;
+  is_signature_dish?: boolean;
 }) {
   return useQuery({
     queryKey: [...menuKeys.items, params],
@@ -114,8 +116,11 @@ export function useCreateMenuItem() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: MenuItemCreate) => menuItemApi.create(data),
-    onSuccess: () => {
+    onSuccess: (createdItem) => {
       queryClient.invalidateQueries({ queryKey: menuKeys.items });
+      if (createdItem?.id) {
+        queryClient.setQueryData([...menuKeys.items, createdItem.id], createdItem);
+      }
     },
   });
 }
@@ -125,8 +130,9 @@ export function useUpdateMenuItem() {
   return useMutation({
     mutationFn: ({ id, data }: { id: number; data: MenuItemUpdate }) =>
       menuItemApi.update(id, data),
-    onSuccess: () => {
+    onSuccess: (updatedItem, { id }) => {
       queryClient.invalidateQueries({ queryKey: menuKeys.items });
+      queryClient.setQueryData([...menuKeys.items, id], updatedItem);
     },
   });
 }

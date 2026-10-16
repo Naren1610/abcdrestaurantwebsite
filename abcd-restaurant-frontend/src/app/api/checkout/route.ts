@@ -4,6 +4,23 @@ import { PRICING } from "@/constants/pricing";
 
 export async function POST(req: NextRequest) {
   try {
+    // 1. Authoritative Server-Side Gate: Verify Online Ordering is Enabled
+    try {
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api/v1";
+      const settingsRes = await fetch(`${backendUrl}/settings/`, { cache: "no-store" });
+      if (settingsRes.ok) {
+        const settings = await settingsRes.json();
+        if (settings.is_online_ordering_enabled === false) {
+          return NextResponse.json(
+            { error: "Online food ordering is currently paused. Please visit us for dine-in service." },
+            { status: 403 }
+          );
+        }
+      }
+    } catch (e) {
+      console.warn("Could not check settings endpoint before checkout:", e);
+    }
+
     const { items, customer } = await req.json();
 
     if (!items?.length) {

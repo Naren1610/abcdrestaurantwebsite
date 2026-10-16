@@ -42,6 +42,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const data = await apiClient.get("/auth/me");
       setUser(data as unknown as User);
+      const existingExpiresAt = localStorage.getItem("session_expires_at");
+      // If no expiry is stored or it was from the old 1-hour session (< 3.5h remaining), expand to 5 hours (18000s)
+      if (!existingExpiresAt || parseInt(existingExpiresAt, 10) - Date.now() < 3.5 * 3600 * 1000) {
+        localStorage.setItem("session_expires_at", (Date.now() + 18000 * 1000).toString());
+      }
     } catch {
       setUser(null);
       localStorage.removeItem("session_expires_at");

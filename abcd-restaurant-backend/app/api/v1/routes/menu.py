@@ -2,7 +2,7 @@ from typing import List, Optional
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.session import get_db
-from app.schemas.menu import ClientMenuCategoryResponse, CategoryCreate, CategoryUpdate, CategoryResponse, MenuItemCreate, MenuItemUpdate, MenuItemResponse, BulkDelete, BulkReorder
+from app.schemas.menu import ClientMenuCategoryResponse, ClientMenuItemResponse, CategoryCreate, CategoryUpdate, CategoryResponse, MenuItemCreate, MenuItemUpdate, MenuItemResponse, BulkDelete, BulkReorder
 from app.schemas.common import PaginatedResponse, PaginationParams
 from app.services.menu_service import menu_service
 
@@ -15,6 +15,10 @@ router = APIRouter()
 @router.get("/client", response_model=List[ClientMenuCategoryResponse])
 async def get_client_menu(db: AsyncSession = Depends(get_db)):
     return await menu_service.get_client_menu(db)
+
+@router.get("/signature-dishes", response_model=List[ClientMenuItemResponse])
+async def get_signature_dishes(db: AsyncSession = Depends(get_db)):
+    return await menu_service.get_signature_dishes(db)
 
 # --- Categories ---
 @router.get("/categories/{category_id}", response_model=CategoryResponse)
@@ -61,6 +65,8 @@ async def get_menu_items(
     category_id: Optional[int] = Query(None),
     is_vegetarian: Optional[bool] = Query(None),
     is_spicy: Optional[bool] = Query(None),
+    is_chef_special: Optional[bool] = Query(None),
+    is_signature_dish: Optional[bool] = Query(None),
     db: AsyncSession = Depends(get_db)
 ):
     return await menu_service.get_all_menu_items(
@@ -69,7 +75,9 @@ async def get_menu_items(
         search=search, 
         category_id=category_id, 
         is_vegetarian=is_vegetarian, 
-        is_spicy=is_spicy
+        is_spicy=is_spicy,
+        is_chef_special=is_chef_special,
+        is_signature_dish=is_signature_dish
     )
 
 @router.post("/items", response_model=MenuItemResponse)

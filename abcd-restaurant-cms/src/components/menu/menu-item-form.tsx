@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { menuItemSchema, MenuItemFormValues, MenuItemFormInput, MenuItemFormOutput } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles, Flame, ChefHat } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -52,6 +52,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
       isVeg: initialData?.isVeg || false,
       isNonVeg: initialData?.isNonVeg || false,
       isChefSpecial: initialData?.isChefSpecial || false,
+        isSignatureDish: initialData?.isSignatureDish || false,
     },
   });
 
@@ -68,6 +69,7 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
         isVeg: Boolean(initialData.isVeg),
         isNonVeg: Boolean(initialData.isNonVeg),
         isChefSpecial: Boolean(initialData.isChefSpecial),
+          isSignatureDish: Boolean(initialData.isSignatureDish),
       });
     }
   }, [initialData, form]);
@@ -173,98 +175,143 @@ export function MenuItemForm({ initialData, onSubmit, onCancel, isLoading }: Men
               )}
             />
 
-            <div className="pt-2">
-              <h4 className="font-outfit font-semibold mb-4 text-lg">Dietary & Flavor Options</h4>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <FormField
-                                    control={form.control}
-                  name="isVeg"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center gap-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="font-outfit font-medium flex items-center gap-2 cursor-pointer">
-                          Veg
-                        </FormLabel>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={(checked) => {
-                            field.onChange(checked);
-                            if (checked) form.setValue("isNonVeg", false);
-                          }}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+            <div className="space-y-6 pt-2">
+              <div>
+                <h4 className="font-outfit font-semibold mb-3 text-base text-foreground">Dietary Classification</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <FormField
+                    control={form.control}
+                    name="isVeg"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center justify-between rounded-lg border border-border/70 p-3 bg-card hover:bg-muted/10 transition-colors">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3.5 h-3.5 border-2 border-emerald-600 flex items-center justify-center rounded-sm">
+                            <div className="w-1.5 h-1.5 bg-emerald-600 rounded-full" />
+                          </div>
+                          <FormLabel className="font-outfit font-medium cursor-pointer text-sm">
+                            Vegetarian
+                          </FormLabel>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                              if (checked) form.setValue("isNonVeg", false);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                                    control={form.control}
-                  name="isNonVeg"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center gap-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="font-outfit font-medium flex items-center gap-2 cursor-pointer">
-                          Non-Veg
-                        </FormLabel>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={(checked) => {
-                            field.onChange(checked);
-                            if (checked) form.setValue("isVeg", false);
-                          }}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="isNonVeg"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center justify-between rounded-lg border border-border/70 p-3 bg-card hover:bg-muted/10 transition-colors">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3.5 h-3.5 border-2 border-red-600 flex items-center justify-center rounded-sm">
+                            <div className="w-1.5 h-1.5 bg-red-600 rounded-full" />
+                          </div>
+                          <FormLabel className="font-outfit font-medium cursor-pointer text-sm">
+                            Non-Veg
+                          </FormLabel>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                              if (checked) form.setValue("isVeg", false);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                                    control={form.control}
-                  name="isSpicy"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center gap-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="font-outfit font-medium flex items-center gap-2 cursor-pointer">
-                          Spicy
-                        </FormLabel>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                                    control={form.control}
-                  name="isChefSpecial"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center gap-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="font-outfit font-medium flex items-center gap-2 cursor-pointer">
-                          Chef&apos;s Special
-                        </FormLabel>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="isSpicy"
+                    render={({ field }) => (
+                      <FormItem className="flex items-center justify-between rounded-lg border border-border/70 p-3 bg-card hover:bg-muted/10 transition-colors">
+                        <div className="flex items-center gap-2">
+                          <Flame className="w-4 h-4 text-amber-500 fill-amber-500" />
+                          <FormLabel className="font-outfit font-medium cursor-pointer text-sm">
+                            Spicy
+                          </FormLabel>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
-            </div>
 
-          </div>
+              {/* Highlights & Showcase */}
+              <div>
+                <h4 className="font-outfit font-semibold mb-3 text-base text-foreground">Menu Highlights & Placement</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="isSignatureDish"
+                    render={({ field }) => (
+                      <FormItem className="flex items-start justify-between rounded-xl border border-amber-500/30 bg-amber-500/[0.04] p-4 transition-colors">
+                        <div className="space-y-1 pr-3">
+                          <div className="flex items-center gap-2">
+                            <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500" />
+                            <FormLabel className="font-outfit font-semibold text-sm cursor-pointer text-foreground">
+                              Signature Dish
+                            </FormLabel>
+                          </div>
+                          <FormDescription className="text-xs text-muted-foreground font-outfit">
+                            Feature this dish prominently on the homepage signature dishes showcase.
+                          </FormDescription>
+                        </div>
+                        <FormControl className="shrink-0 mt-0.5">
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="isChefSpecial"
+                    render={({ field }) => (
+                      <FormItem className="flex items-start justify-between rounded-xl border border-border/80 bg-card p-4 transition-colors">
+                        <div className="space-y-1 pr-3">
+                          <div className="flex items-center gap-2">
+                            <ChefHat className="w-4 h-4 text-brand" />
+                            <FormLabel className="font-outfit font-semibold text-sm cursor-pointer text-foreground">
+                              Chef&apos;s Special
+                            </FormLabel>
+                          </div>
+                          <FormDescription className="text-xs text-muted-foreground font-outfit">
+                            Highlight this item with a special culinary badge in menu listings.
+                          </FormDescription>
+                        </div>
+                        <FormControl className="shrink-0 mt-0.5">
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            </div></div>
 
           {/* Sidebar Column */}
           <div className="lg:col-span-1 space-y-6 bg-muted/10 p-6 rounded-xl border border-border/50 h-fit">

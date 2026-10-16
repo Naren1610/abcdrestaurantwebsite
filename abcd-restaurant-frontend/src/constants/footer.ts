@@ -19,9 +19,8 @@ export const RESTAURANT_INFO = {
       times: ["11:00am – 11:00pm"],
     },
   ] satisfies HourSlot[],
-  stayConnected: {
-    description:
-      "Be the first to know about our specials, events & offers.",
+  followUs: {
+    description: "Follow us for signature flavors, kitchen stories, and celebrations from our community.",
   },
   copyright: "© 2026 ABCD Restaurant. All rights reserved.",
 };

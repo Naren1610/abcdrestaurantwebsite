@@ -96,7 +96,7 @@ function DraggableRow({ row, renderSubComponent }: { row: Row<any>, renderSubCom
         ))}
       </TableRow>
       {row.getIsExpanded() && renderSubComponent && (
-        <TableRow className="bg-muted/10 border-b border-border/50">
+        <TableRow className="bg-muted/10 border-b border-border/50 hover:bg-muted/10">
           <TableCell colSpan={row.getVisibleCells().length} className="p-0">
             {renderSubComponent({ row })}
           </TableCell>
@@ -225,7 +225,7 @@ export function DataTable<TData, TValue>({
                     ))}
                   </TableRow>
                   {row.getIsExpanded() && renderSubComponent && (
-                    <TableRow className="bg-muted/10 border-b border-border/50">
+                    <TableRow className="bg-muted/10 border-b border-border/50 hover:bg-muted/10">
                       <TableCell colSpan={row.getVisibleCells().length} className="p-0">
                         {renderSubComponent({ row })}
                       </TableCell>

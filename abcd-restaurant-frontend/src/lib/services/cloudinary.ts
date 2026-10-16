@@ -1,4 +1,4 @@
-﻿const MENU_ITEM_TRANSFORM = "f_jpg,w_600";
+const MENU_ITEM_TRANSFORM = "f_jpg,w_600";
 const GALLERY_TRANSFORM = "f_auto,q_auto"; // Best practices for general images
 
 export type ImageType = "menu-item" | "gallery";

@@ -36,7 +36,7 @@ export default function OurStory() {
           <div className="relative w-full max-w-[560px] md:max-w-[640px] lg:max-w-[760px] xl:max-w-[840px] flex justify-center lg:justify-end">
             {/* Image Container */}
             <div
-              className="relative w-full h-[250px] sm:h-[320px] md:h-[380px] lg:h-auto overflow-hidden rounded-[20px] lg:rounded-none lg:[mask-image:radial-gradient(ellipse_100%_88%_at_96%_45%,#000_64%,rgba(0,0,0,0.65)_80%,rgba(0,0,0,0.15)_92%,transparent_100%)] lg:[-webkit-mask-image:radial-gradient(ellipse_100%_88%_at_96%_45%,#000_64%,rgba(0,0,0,0.65)_80%,rgba(0,0,0,0.15)_92%,transparent_100%)] shadow-sm lg:shadow-none"
+              suppressHydrationWarning className="relative w-full h-[250px] sm:h-[320px] md:h-[380px] lg:h-auto overflow-hidden rounded-[20px] lg:rounded-none lg:[mask-image:radial-gradient(ellipse_100%_88%_at_96%_45%,#000_64%,rgba(0,0,0,0.65)_80%,rgba(0,0,0,0.15)_92%,transparent_100%)] lg:[-webkit-mask-image:radial-gradient(ellipse_100%_88%_at_96%_45%,#000_64%,rgba(0,0,0,0.65)_80%,rgba(0,0,0,0.15)_92%,transparent_100%)] shadow-sm lg:shadow-none"
             >
               <Image
                 src="/images/about/abcd-restaurant.png"

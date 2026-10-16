@@ -1,4 +1,4 @@
-﻿from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field
 
 class UploadSignatureRequest(BaseModel):
     entity_type: str = Field(..., description="E.g., 'menu', 'team', 'gallery', 'content'")

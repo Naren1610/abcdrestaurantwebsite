@@ -5,9 +5,8 @@ import Logo from "@/components/ui/Logo";
 import CTAButton from "@/components/ui/CTAButton";
 import NavLink from "./NavLink";
 import { NAV_ITEMS } from "@/constants/navigation";
-
+import { useSettings } from "@/hooks/use-settings";
 import { Menu, X } from "lucide-react";
-
 
 function MenuIcon({ isOpen }: { isOpen: boolean }) {
   return isOpen ? (
@@ -19,6 +18,16 @@ function MenuIcon({ isOpen }: { isOpen: boolean }) {
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: settings } = useSettings();
+  const isReservationsEnabled = settings?.is_table_reservation_enabled ?? true;
+  const restaurantPhone = settings?.phone || "+1 (555) 234-5678";
+
+  // Reserve commented out from navigation & disabled as requested
+  // { label: "Reserve", href: "/reserve" }
+  const navItems = NAV_ITEMS.filter((i) => i.href !== "/reserve");
+
+  const ctaLabel = "Book a Table";
+  const ctaHref = undefined;
 
   // lock scroll while menu open
   useEffect(() => {
@@ -40,7 +49,7 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav aria-label="Main navigation" className="hidden lg:block">
           <ul className="flex items-center gap-8">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <li key={item.href}>
                 <NavLink item={item} />
               </li>
@@ -50,7 +59,7 @@ export default function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:block">
-          <CTAButton label="Book a Table" href="/reserve" />
+          <CTAButton label={ctaLabel} />
         </div>
 
         {/* Mobile Hamburger Toggle */}
@@ -65,7 +74,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Navigation Drawer - conditionally rendered to guarantee no overlay blocking */}
+      {/* Mobile Navigation Drawer */}
       {isOpen && (
         <div
           className="fixed inset-0 z-40 bg-background flex flex-col justify-between px-6 pt-24 pb-10 transition-all duration-300 ease-in-out lg:hidden"
@@ -73,7 +82,7 @@ export default function Header() {
         >
           <nav aria-label="Mobile navigation" className="flex-1 flex flex-col justify-center w-full">
             <ul className="flex flex-col items-center justify-center gap-8">
-              {NAV_ITEMS.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.href}>
                   <div onClick={() => setIsOpen(false)}>
                     <NavLink item={item} />
@@ -86,8 +95,7 @@ export default function Header() {
           {/* Mobile CTA */}
           <div className="w-full mt-auto" onClick={() => setIsOpen(false)}>
             <CTAButton
-              label="Book a Table"
-              href="/reserve"
+              label={ctaLabel}
               className="w-full flex justify-center items-center gap-3 rounded-full bg-brand pl-6 pr-1.5 py-2 text-[15px] font-semibold font-outfit text-btn-text transition-opacity duration-200 hover:opacity-90 shadow-md"
               circleClassName="flex h-8 w-8 items-center justify-center rounded-full border border-btn-circle-border"
               arrowClassName="text-btn-text"

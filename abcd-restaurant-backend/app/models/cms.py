@@ -1,4 +1,4 @@
-﻿import enum
+import enum
 from sqlalchemy import Column, Integer, String, Text, Boolean, Enum
 from sqlalchemy.dialects.postgresql import JSONB
 from app.database.session import Base

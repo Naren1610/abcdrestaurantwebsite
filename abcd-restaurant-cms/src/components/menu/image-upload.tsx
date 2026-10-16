@@ -10,12 +10,13 @@ interface ImageUploadProps {
   value?: string;
   onChange: (value: string) => void;
   aspectRatio?: "square" | "video" | "banner" | "auto";
+  entityType?: "menu" | "team" | "gallery" | "content";
 }
 
 import { apiClient } from "@/lib/api-client";
 import axios from "axios";
 
-export function ImageUpload({ value, onChange, aspectRatio = "auto", className = "w-full" }: ImageUploadProps) {
+export function ImageUpload({ value, onChange, aspectRatio = "auto", className = "w-full", entityType = "menu" }: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(value || null);
   const [isUploading, setIsUploading] = useState(false);
   const [prevValue, setPrevValue] = useState(value);
@@ -45,7 +46,7 @@ export function ImageUpload({ value, onChange, aspectRatio = "auto", className =
         cloud_name: string;
       }
       const sigResponse = await apiClient.post<never, SignatureResponse>("/upload/signature", {
-        entity_type: "menu",
+        entity_type: entityType,
         entity_name: file.name.split('.')[0] || "image",
       });
       const { signature, timestamp, public_id, folder, api_key, cloud_name } = sigResponse;

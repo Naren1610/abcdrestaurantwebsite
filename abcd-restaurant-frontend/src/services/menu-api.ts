@@ -1,5 +1,5 @@
 import { apiClient } from '@/lib/api-client';
-import type { Category, MenuItem, ClientMenuCategory } from '@/types/api/menu';
+import type { Category, MenuItem, ClientMenuCategory, ClientMenuItem } from '@/types/api/menu';
 
 export const categoryApi = {
   getAll: () => apiClient.get<never, Category[]>('/menu/categories'),
@@ -11,4 +11,5 @@ export const menuItemApi = {
 
 export const menuApi = {
   getClientMenu: () => apiClient.get<ClientMenuCategory[]>('/menu/client').then(res => res.data),
+  getSignatureDishes: () => apiClient.get<ClientMenuItem[]>('/menu/signature-dishes').then(res => res.data),
 };

@@ -17,8 +17,6 @@ class SocialLinkResponse(SocialLinkBase):
 class OperatingHourBase(BaseModel):
     day: str
     hours: str
-    
-    
 
 class OperatingHourCreate(OperatingHourBase):
     pass
@@ -34,6 +32,8 @@ class GlobalSettingsBase(BaseModel):
     phone: str
     address: str
     map_url: Optional[str] = None
+    is_online_ordering_enabled: bool = False
+    is_table_reservation_enabled: bool = True
 
 class GlobalSettingsCreate(GlobalSettingsBase):
     social_links: List[SocialLinkCreate] = []
@@ -46,3 +46,7 @@ class GlobalSettingsResponse(GlobalSettingsBase):
 
     class Config:
         from_attributes = True
+
+class OperationalSettingsUpdate(BaseModel):
+    is_online_ordering_enabled: Optional[bool] = None
+    is_table_reservation_enabled: Optional[bool] = None

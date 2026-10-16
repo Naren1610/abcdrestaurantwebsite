@@ -9,3 +9,10 @@ export interface ClientGalleryResponse {
   categories: string[];
   images: ClientGalleryImage[];
 }
+
+export interface ClientGalleryTopPick {
+  id: number;
+  image_url: string;
+  caption: string | null;
+  title: string | null;
+}

@@ -8,12 +8,25 @@ from sqlalchemy.future import select
 from app.database.session import get_db
 from app.models.gallery import GalleryCategory, GalleryImage
 from app.schemas.gallery import (
+    ClientGalleryTopPick,
     ClientGalleryResponse, ClientGalleryImage,
     GalleryCategoryCreate, GalleryCategoryUpdate, GalleryCategoryResponse, GalleryCategoryReorder,
     GalleryImageCreate, GalleryImageUpdate, GalleryImageResponse
 )
 
 router = APIRouter()
+
+
+@router.get("/top-picks", response_model=List[ClientGalleryTopPick])
+async def get_gallery_top_picks(db: AsyncSession = Depends(get_db)):
+    stmt = (
+        select(GalleryImage)
+        .filter(GalleryImage.is_top_pick == True)
+        .order_by(GalleryImage.created_at.desc())
+        .limit(4)
+    )
+    result = await db.execute(stmt)
+    return result.scalars().all()
 
 
 @router.get("/client", response_model=ClientGalleryResponse)

@@ -24,7 +24,13 @@ export default function MenuAccordion() {
 
     const syncToHash = () => {
       const id = getHashId();
-      if (id && validIds.has(id)) setOpenId(id);
+      if (id && validIds.has(id)) {
+        setOpenId(id);
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
     };
 
     syncToHash();

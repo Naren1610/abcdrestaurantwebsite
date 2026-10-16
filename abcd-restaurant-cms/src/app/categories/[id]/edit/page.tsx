@@ -28,13 +28,21 @@ export default function EditCategoryPage() {
       setInitialData({
         name: category.name,
         subtitle: category.subtitle || "",
+        letter_group: category.letter_group || null,
       });
     }
   }
 
   const handleUpdate = (values: CategoryFormValues) => {
     updateCategory.mutate(
-      { id, data: { name: values.name, subtitle: values.subtitle || null } },
+      {
+        id,
+        data: {
+          name: values.name,
+          subtitle: values.subtitle || null,
+          letter_group: values.letter_group || null,
+        },
+      },
       {
         onSuccess: () => {
           toast.success("Category updated successfully!");

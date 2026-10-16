@@ -40,7 +40,6 @@ export default function ReservationCTA() {
                 {/* Reusable CTA Button */}
                 <CTAButton
                   label="Book Your Table"
-                  href="/reserve"
                   className="inline-flex items-center gap-3 rounded-full bg-[#B98F56] pl-6 pr-1.5 py-1.5 text-[14px] sm:text-[15px] font-semibold font-outfit text-white transition-opacity duration-200 hover:opacity-90 shrink-0 shadow-sm"
                   circleClassName="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 border border-white/40"
                   arrowClassName="text-white"

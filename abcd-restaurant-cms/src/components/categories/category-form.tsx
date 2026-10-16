@@ -1,5 +1,6 @@
-﻿"use client";
+"use client";
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { categorySchema, CategoryFormValues } from "@/lib/schemas";
@@ -30,6 +31,7 @@ export function CategoryForm({ initialData, onSubmit, onCancel, isLoading }: Cat
     defaultValues: initialData || {
       name: "",
       subtitle: "",
+      letter_group: null,
     },
   });
 
@@ -79,6 +81,39 @@ export function CategoryForm({ initialData, onSubmit, onCancel, isLoading }: Cat
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="letter_group"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-outfit font-semibold">ABCD Menu Chapter Group</FormLabel>
+                <Select
+                  value={field.value || "none"}
+                  onValueChange={(val) => field.onChange(val === "none" ? null : val)}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full font-outfit">
+                      <span className="truncate">
+                        {field.value ? `Chapter [${field.value}]` : "None (No ABCD chapter)"}
+                      </span>
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="font-outfit">
+                    <SelectItem value="none">None (e.g. Add-Ons / Unassigned)</SelectItem>
+                    <SelectItem value="A">A — Appetizers</SelectItem>
+                    <SelectItem value="B">B — Biryani & Bread</SelectItem>
+                    <SelectItem value="C">C — Curries & Entrees</SelectItem>
+                    <SelectItem value="D">D — Desserts & Drinks</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription className="font-outfit text-xs">
+                  Assign this category to an ABCD chapter. In the customer menu, clicking A, B, C, or D scrolls directly to the first category of that chapter.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="flex items-center justify-end gap-4 pt-6 border-t border-border/50 w-full">
@@ -100,8 +135,3 @@ export function CategoryForm({ initialData, onSubmit, onCancel, isLoading }: Cat
     </Form>
   );
 }
-
-
-
-
-

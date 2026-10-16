@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { MenuItem } from "@/types/api/menu";
-import { MoreHorizontal, Pencil, Trash2, GripVertical } from "lucide-react";
+import { MoreHorizontal, Pencil, Trash2, GripVertical, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -170,6 +170,12 @@ export const columns: ColumnDef<MenuItem, unknown>[] = [
           {isSpicy && (
             <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-200 text-xs font-medium">
               🌶️ Spicy
+            </Badge>
+          )}
+                    {row.original.is_signature_dish && (
+            <Badge variant="secondary" className="bg-amber-500/15 text-amber-700 border-amber-300 text-xs font-semibold flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-amber-500 fill-amber-500" />
+              Signature
             </Badge>
           )}
           {isChefSpecial && (

@@ -1,6 +1,5 @@
 import Logo from "@/components/ui/Logo";
 import Image from "next/image";
-import Link from "next/link";
 import ArrowRightIcon from "@/components/ui/ArrowRightIcon";
 
 export default function ExperienceBanner() {
@@ -9,15 +8,16 @@ export default function ExperienceBanner() {
       <div className="mx-auto w-full max-w-[1440px] px-6 lg:px-10">
         <div className="relative w-full rounded-[12px] lg:rounded-[8px] bg-[#571621] overflow-hidden h-[220px] min-[420px]:h-[240px] sm:h-[270px] md:h-[300px] lg:h-[384px] shadow-lg">
 
-          {/* Left Floral Accent */}
+          {/* Left Floral Accent - crisp high-resolution sizes */}
           <div className="absolute left-0 sm:left-[1%] lg:left-[21%] bottom-0 h-[80%] sm:h-[84%] lg:h-[83%] w-[24%] sm:w-[18%] lg:w-[14%] max-w-[200px] pointer-events-none z-10 opacity-70 sm:opacity-85 lg:opacity-100">
             <Image
               src="/images/home/ready-to-experience/clean_floral_left.png"
               alt=""
               fill
-              sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 0vw"
+              sizes="(max-width: 640px) 140px, (max-width: 1024px) 180px, 220px"
               className="object-contain object-bottom"
               priority
+              quality={95}
             />
           </div>
 
@@ -37,8 +37,9 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_floral_right.png"
               alt=""
               fill
-              sizes="(max-width: 640px) 25vw, (max-width: 1024px) 20vw, 15vw"
+              sizes="(max-width: 640px) 140px, (max-width: 1024px) 180px, 220px"
               className="object-contain object-top"
+              quality={95}
             />
           </div>
 
@@ -46,9 +47,9 @@ export default function ExperienceBanner() {
           <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 h-[70%] sm:h-[75%] lg:h-[78%] w-[30%] sm:w-[28%] lg:w-[25%] max-w-[320px] pointer-events-none z-10">
             <Image
               src="/images/home/ready-to-experience/clean_tajmahal.png"
-              alt=""
+              alt="Taj Mahal Line Art"
               fill
-              sizes="(max-width: 1024px) 0vw, 30vw"
+              sizes="(max-width: 1024px) 0vw, 320px"
               className="object-contain object-right"
               priority
             />
@@ -60,7 +61,7 @@ export default function ExperienceBanner() {
               src="/images/home/ready-to-experience/clean_tajmahal.png"
               alt=""
               fill
-              sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 0vw"
+              sizes="(max-width: 640px) 280px, (max-width: 1024px) 400px, 340px"
               className="object-contain object-bottom"
               priority
             />
@@ -85,9 +86,9 @@ export default function ExperienceBanner() {
             <p className="font-playfair-display italic font-medium text-[#C59B58] text-[14px] min-[390px]:text-[16px] sm:text-[20px] lg:text-[28px] leading-[1.18] sm:leading-[1.15] tracking-tight mt-1 sm:mt-1.5 lg:mt-3 mb-0">
               An Authentic Taste of India?
             </p>
-            <Link
-              href="/reserve"
-              className="mt-5 sm:mt-7 lg:mt-6 inline-flex items-center justify-between rounded-full bg-white pl-4 sm:pl-5 pr-1.5 py-1.5 h-[36px] sm:h-[42px] lg:h-[50px] w-[140px] sm:w-[158px] shadow-md hover:opacity-95 transition-opacity duration-200"
+            <button
+              type="button"
+              className="mt-5 sm:mt-7 lg:mt-6 inline-flex items-center justify-between rounded-full bg-white pl-4 sm:pl-5 pr-1.5 py-1.5 h-[36px] sm:h-[42px] lg:h-[50px] w-[140px] sm:w-[158px] shadow-md hover:opacity-95 transition-opacity duration-200 cursor-pointer"
             >
               <span className="font-outfit font-medium text-[12px] sm:text-[14px] text-[#571621] tracking-normal">
                 Book a Table
@@ -95,7 +96,7 @@ export default function ExperienceBanner() {
               <span className="flex h-[26px] w-[26px] sm:h-[32px] sm:w-[32px] lg:h-[38px] lg:w-[38px] items-center justify-center rounded-full bg-[#571621] shrink-0">
                 <ArrowRightIcon className="text-white" size={11} />
               </span>
-            </Link>
+            </button>
           </div>
 
         </div>

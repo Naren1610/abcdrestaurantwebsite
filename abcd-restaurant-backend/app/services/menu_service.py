@@ -113,7 +113,9 @@ class MenuService:
         search: str | None = None,
         category_id: int | None = None,
         is_vegetarian: bool | None = None,
-        is_spicy: bool | None = None
+        is_spicy: bool | None = None,
+        is_chef_special: bool | None = None,
+        is_signature_dish: bool | None = None
     ):
         query = select(MenuItem).options(selectinload(MenuItem.category))
         
@@ -130,6 +132,10 @@ class MenuService:
             query = query.filter(MenuItem.is_veg == is_vegetarian)
         if is_spicy is not None:
             query = query.filter(MenuItem.is_spicy == is_spicy)
+        if is_chef_special is not None:
+            query = query.filter(MenuItem.is_chef_special == is_chef_special)
+        if is_signature_dish is not None:
+            query = query.filter(MenuItem.is_signature_dish == is_signature_dish)
             
         count_query = select(func.count()).select_from(query.subquery())
         total_result = await db.execute(count_query)
@@ -212,6 +218,7 @@ class MenuService:
             
         await db.commit()
         await db.refresh(db_item)
+        await db.refresh(db_item, ['category'])
         return db_item
 
     async def delete_menu_item(self, db: AsyncSession, item_id: int):
@@ -275,7 +282,8 @@ class MenuService:
                 "price": item.price,
                 "image": item.image_url,
                 "tags": tags,
-                "isChefPick": item.is_chef_special
+                "isChefPick": item.is_chef_special,
+                "isSignatureDish": getattr(item, "is_signature_dish", False)
             }
             grouped_items[item.category_id].append(client_item)
             
@@ -288,9 +296,41 @@ class MenuService:
                     "id": slug,
                     "title": cat.name,
                     "subtitle": cat.subtitle,
+                    "letter_group": cat.letter_group,
                     "items": cat_items
                 })
                 
+        return result
+
+
+    async def get_signature_dishes(self, db: AsyncSession):
+        item_query = select(MenuItem).filter(
+            MenuItem.is_active == True,
+            MenuItem.is_signature_dish == True
+        ).order_by(MenuItem.display_order)
+        item_result = await db.execute(item_query)
+        items = item_result.scalars().all()
+        
+        result = []
+        for item in items:
+            tags = []
+            if item.is_veg:
+                tags.append("veg")
+            else:
+                tags.append("non-veg")
+            if item.is_spicy:
+                tags.append("spicy")
+                
+            result.append({
+                "id": str(item.id),
+                "name": item.name,
+                "description": item.description,
+                "price": item.price,
+                "image": item.image_url,
+                "tags": tags,
+                "isChefPick": item.is_chef_special,
+                "isSignatureDish": True
+            })
         return result
 
 

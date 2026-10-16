@@ -80,6 +80,21 @@ export const columns: ColumnDef<Category, any>[] = [
     },
   },
   {
+    accessorKey: "letter_group",
+    header: "ABCD Chapter",
+    cell: ({ row }) => {
+      const group = row.original.letter_group;
+      if (!group) {
+        return <span className="text-muted-foreground/40 font-outfit text-xs font-mono">-</span>;
+      }
+      return (
+        <span className="inline-flex items-center justify-center font-bold font-outfit text-xs bg-brand text-white rounded-md w-6 h-6 shadow-sm">
+          {group}
+        </span>
+      );
+    },
+  },
+  {
     id: "itemCount",
     header: "Items",
     cell: ({ row }) => <CategoryItemCount categoryId={row.original.id} />

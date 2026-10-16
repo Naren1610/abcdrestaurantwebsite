@@ -9,6 +9,7 @@ class Category(Base):
     name = Column(String(100), unique=True, index=True, nullable=False)
     subtitle = Column(String(200), nullable=True)
     display_order = Column(Integer, default=0)
+    letter_group = Column(String(1), nullable=True)
 
     items = relationship("MenuItem", back_populates="category", cascade="all, delete-orphan")
 
@@ -19,11 +20,12 @@ class MenuItem(Base):
     name = Column(String(200), index=True, nullable=False)
     description = Column(Text, nullable=True)
     price = Column(Float, nullable=False)
-    image_url = Column(String(500), nullable=False) # Cloudinary URL
+    image_url = Column(String(500), nullable=True) # Cloudinary URL
     
     is_veg = Column(Boolean, nullable=False, default=False)
     is_spicy = Column(Boolean, nullable=False, default=False)
     is_chef_special = Column(Boolean, nullable=False, default=False)
+    is_signature_dish = Column(Boolean, nullable=False, default=False)
     is_active = Column(Boolean, nullable=False, default=True)
     display_order = Column(Integer, default=0)
 

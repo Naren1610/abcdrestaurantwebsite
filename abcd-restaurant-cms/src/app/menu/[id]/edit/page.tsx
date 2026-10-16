@@ -1,21 +1,25 @@
 "use client";
 import { AxiosError } from 'axios';
 
+import { Suspense, useEffect, useState } from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { MenuItemForm } from "@/components/menu/menu-item-form";
 import { MenuItemFormValues } from "@/lib/schemas";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { ArrowLeft, Loader2, AlertCircle, RotateCw } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useMenuItem, useUpdateMenuItem } from "@/hooks/use-menu";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
 
-export default function EditMenuItemPage() {
+function EditMenuItemContent() {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const id = Number(params.id);
+  const from = searchParams.get("from");
+  const returnUrl = from === "categories" ? "/menu?tab=categories" : "/menu?tab=items";
+  const backLabel = from === "categories" ? "Back to Categories" : "Back to Menu";
 
   const { data: item, isLoading: isFetching, isError, error, refetch } = useMenuItem(id);
   const updateMenuItem = useUpdateMenuItem();
@@ -34,6 +38,7 @@ export default function EditMenuItemPage() {
         isVeg: Boolean(item.is_veg),
         isNonVeg: !item.is_veg,
         isChefSpecial: Boolean(item.is_chef_special),
+        isSignatureDish: Boolean(item.is_signature_dish),
         image: item.image_url || "",
       });
     }
@@ -51,13 +56,14 @@ export default function EditMenuItemPage() {
           is_veg: values.isVeg,
           is_spicy: values.isSpicy,
           is_chef_special: values.isChefSpecial,
+          is_signature_dish: values.isSignatureDish,
           image_url: values.image,
         },
       },
       {
         onSuccess: () => {
           toast.success("Menu item updated successfully!");
-          router.push("/menu?tab=items");
+          router.push(returnUrl);
         },
         onError: (error: unknown) => {
           const axiosError = error as AxiosError<{"detail": string}>;
@@ -72,10 +78,10 @@ export default function EditMenuItemPage() {
     <DashboardLayout>
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
         <div>
-          <Link href="/menu?tab=items">
+          <Link href={returnUrl}>
             <Button variant="ghost" className="mb-4 -ml-4 text-muted-foreground hover:text-foreground">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Menu
+              {backLabel}
             </Button>
           </Link>
           <h2 className="text-3xl font-bold font-playfair tracking-tight text-brand">Edit Menu Item</h2>
@@ -95,8 +101,8 @@ export default function EditMenuItemPage() {
                 {(error as Error)?.message || "We encountered an issue fetching the menu item details. Please try again."}
               </p>
               <div className="flex items-center gap-3">
-                <Button variant="outline" onClick={() => router.push("/menu?tab=items")} className="font-outfit">
-                  Back to Menu
+                <Button variant="outline" onClick={() => router.push(returnUrl)} className="font-outfit">
+                  {backLabel}
                 </Button>
                 <Button onClick={() => refetch()} className="font-outfit bg-brand text-white hover:bg-brand/90">
                   <RotateCw className="mr-2 h-4 w-4" />
@@ -113,12 +119,28 @@ export default function EditMenuItemPage() {
             <MenuItemForm
               initialData={initialData}
               onSubmit={handleUpdate}
-              onCancel={() => router.push("/menu?tab=items")}
+              onCancel={() => router.push(returnUrl)}
               isLoading={updateMenuItem.isPending}
             />
           )}
         </div>
       </div>
     </DashboardLayout>
+  );
+}
+
+export default function EditMenuItemPage() {
+  return (
+    <Suspense
+      fallback={
+        <DashboardLayout>
+          <div className="flex items-center justify-center py-24">
+            <Loader2 className="h-8 w-8 animate-spin text-brand" />
+          </div>
+        </DashboardLayout>
+      }
+    >
+      <EditMenuItemContent />
+    </Suspense>
   );
 }

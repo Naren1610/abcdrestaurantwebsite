@@ -1,6 +1,9 @@
-﻿from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import validator
 from typing import List, Union
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "ABCD Restaurant API"
@@ -31,11 +34,10 @@ class Settings(BaseSettings):
     CLOUDINARY_API_SECRET: str
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=[str(BASE_DIR / ".env"), ".env"],
         env_file_encoding="utf-8",
         case_sensitive=True,
         extra="ignore"
     )
 
 settings = Settings()
-

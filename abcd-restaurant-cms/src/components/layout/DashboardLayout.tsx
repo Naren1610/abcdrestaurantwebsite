@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";

@@ -5,7 +5,7 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy import delete
 from app.database.session import get_db
 from app.models.settings import GlobalSettings, SocialLink, OperatingHour
-from app.schemas.settings import GlobalSettingsResponse, GlobalSettingsCreate
+from app.schemas.settings import GlobalSettingsResponse, GlobalSettingsCreate, OperationalSettingsUpdate
 from typing import List
 
 router = APIRouter()
@@ -27,6 +27,36 @@ async def get_settings(db: AsyncSession = Depends(get_db)):
     
     return settings
 
+@router.patch("/operations", response_model=GlobalSettingsResponse)
+async def update_operational_settings(
+    operations_in: OperationalSettingsUpdate,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Safely update operational controls (Online Ordering, Table Reservations)
+    without touching or deleting social links or operating hours.
+    """
+    result = await db.execute(
+        select(GlobalSettings)
+        .options(selectinload(GlobalSettings.social_links), selectinload(GlobalSettings.operating_hours))
+        .filter(GlobalSettings.id == 1)
+    )
+    settings = result.scalars().first()
+    if not settings:
+        raise HTTPException(status_code=404, detail="Settings not found")
+    
+    if operations_in.is_online_ordering_enabled is not None:
+        settings.is_online_ordering_enabled = operations_in.is_online_ordering_enabled
+    if operations_in.is_table_reservation_enabled is not None:
+        settings.is_table_reservation_enabled = operations_in.is_table_reservation_enabled
+        
+    await db.commit()
+    await db.refresh(settings, ["social_links", "operating_hours"])
+    
+    settings.social_links = sorted(settings.social_links, key=lambda x: x.display_order or 0)
+    settings.operating_hours = sorted(settings.operating_hours, key=lambda x: x.display_order or 0)
+    return settings
+
 @router.put("/", response_model=GlobalSettingsResponse)
 async def update_settings(settings_in: GlobalSettingsCreate, db: AsyncSession = Depends(get_db)):
     result = await db.execute(
@@ -43,7 +73,9 @@ async def update_settings(settings_in: GlobalSettingsCreate, db: AsyncSession = 
             email=settings_in.email,
             phone=settings_in.phone,
             address=settings_in.address,
-            map_url=settings_in.map_url
+            map_url=settings_in.map_url,
+            is_online_ordering_enabled=settings_in.is_online_ordering_enabled,
+            is_table_reservation_enabled=settings_in.is_table_reservation_enabled
         )
         db.add(settings)
     else:
@@ -52,6 +84,8 @@ async def update_settings(settings_in: GlobalSettingsCreate, db: AsyncSession = 
         settings.phone = settings_in.phone
         settings.address = settings_in.address
         settings.map_url = settings_in.map_url
+        settings.is_online_ordering_enabled = settings_in.is_online_ordering_enabled
+        settings.is_table_reservation_enabled = settings_in.is_table_reservation_enabled
         
         # Clear existing relations
         await db.execute(delete(SocialLink).where(SocialLink.settings_id == 1))
@@ -74,8 +108,6 @@ async def update_settings(settings_in: GlobalSettingsCreate, db: AsyncSession = 
             settings_id=1,
             day=oh.day,
             hours=oh.hours,
-            
-            
             display_order=idx
         ))
         

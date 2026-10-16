@@ -24,6 +24,7 @@ Table categories {
   name varchar(100) [unique, not null]
   subtitle varchar(200)
   display_order int [default: 0]
+  letter_group varchar(1) [note: 'ABCD branded chapter: A, B, C, D or null']
 }
 
 Table menu_items {
@@ -34,6 +35,8 @@ Table menu_items {
   image_url varchar(500) [note: 'Cloudinary CDN URL']
   is_veg boolean [default: false]
   is_spicy boolean [default: false]
+  is_chef_special boolean [default: false]
+  is_signature_dish boolean [default: false]
   is_active boolean [default: true]
   display_order int [default: 0]
   category_id int [not null, ref: > categories.id]
@@ -45,6 +48,7 @@ Table menu_items {
 
 Table orders {
   id int [pk, increment]
+  public_id varchar(36) [unique, not null, note: 'UUIDv7 / public facing identifier']
   customer_name varchar(200) [not null]
   customer_email varchar(255) [not null]
   customer_phone varchar(50) [not null]
@@ -72,6 +76,7 @@ Table order_items {
 
 Table reservations {
   id int [pk, increment]
+  public_id varchar(36) [unique, not null, note: 'UUIDv7 / public facing identifier']
   customer_name varchar(200) [not null]
   customer_email varchar(255) [not null]
   customer_phone varchar(50) [not null]

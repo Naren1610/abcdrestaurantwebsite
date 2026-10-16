@@ -1,4 +1,5 @@
 import Image from "next/image";
+import SafeImage from "@/components/ui/SafeImage";
 
 interface GalleryItemProps {
   caption?: string;
@@ -30,9 +31,9 @@ export default function GalleryItem({
       {/* Image Wrapper */}
       <div className="relative w-full aspect-[9/10] overflow-hidden bg-gray-100 border border-gray-100">
         {image ? (
-          <Image
+          <SafeImage
             src={image}
-            alt="Gallery image"
+            alt={caption || "Gallery image"}
             fill
             className="object-cover"
           />
@@ -48,5 +49,3 @@ export default function GalleryItem({
     </div>
   );
 }
-
-

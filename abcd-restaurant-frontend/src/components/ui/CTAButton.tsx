@@ -8,6 +8,7 @@ type CTAButtonProps = {
   className?: string;
   circleClassName?: string;
   arrowClassName?: string;
+  disabled?: boolean;
 };
 
 const BASE_BUTTON =
@@ -25,6 +26,7 @@ export default function CTAButton({
   className = BASE_BUTTON,
   circleClassName = BASE_CIRCLE,
   arrowClassName = BASE_ARROW,
+  disabled = false,
 }: CTAButtonProps) {
   const content = (
     <>
@@ -34,6 +36,19 @@ export default function CTAButton({
       </span>
     </>
   );
+
+  if (disabled) {
+    return (
+      <button
+        type="button"
+        disabled
+        aria-disabled="true"
+        className={`${className} opacity-50 cursor-not-allowed pointer-events-none select-none`}
+      >
+        {content}
+      </button>
+    );
+  }
 
   if (href) {
     return (

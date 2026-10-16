@@ -1,16 +1,14 @@
 "use client";
 
+import * as React from "react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { SettingsForm } from "@/components/settings/settings-form";
-import { AccountSettingsForm } from "@/components/settings/account-settings-form";
-import { mockSettings } from "@/lib/mockData";
 import { SettingsFormValues } from "@/lib/schemas";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api-client";
 import { Loader2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function SettingsPage() {
   const queryClient = useQueryClient();
@@ -19,7 +17,7 @@ export default function SettingsPage() {
     queryKey: ['settings'],
     queryFn: () => apiClient.get('/settings/').catch((err) => {
       if (err.response?.status === 404) {
-        return null; // No settings found yet, perfectly valid for first run
+        return null;
       }
       throw err;
     })
@@ -27,12 +25,13 @@ export default function SettingsPage() {
 
   const mutation = useMutation({
     mutationFn: (values: SettingsFormValues) => {
-      // API expects map_url (snake_case)
       const payload = {
         ...values,
         map_url: values.mapUrl,
-        social_links: values.socialLinks?.map((l: { platform: string, url: string }) => ({ platform: l.platform, url: l.url })) || [],
-        operating_hours: values.operatingHours?.map((h: { day: string, hours: string }) => ({
+        is_online_ordering_enabled: values.isOnlineOrderingEnabled,
+        is_table_reservation_enabled: values.isTableReservationEnabled,
+        social_links: values.socialLinks?.map((l) => ({ platform: l.platform, url: l.url })) || [],
+        operating_hours: values.operatingHours?.map((h) => ({
           day: h.day,
           hours: h.hours
         })) || []
@@ -41,12 +40,57 @@ export default function SettingsPage() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['settings'] });
+      toast.success("Settings updated successfully!");
+    },
+    onError: (err: unknown) => {
+      const axiosError = err as { response?: { data?: { detail?: string } } };
+      toast.error(axiosError?.response?.data?.detail || "Failed to update settings. Please try again.");
     }
   });
 
-  const handleSave = (values: SettingsFormValues) => {
-    mutation.mutate(values);
+  const handleSave = async (values: SettingsFormValues) => {
+    return mutation.mutateAsync(values);
   };
+
+  const initialData = React.useMemo<SettingsFormValues>(() => {
+    const settings = settingsData as {
+      email?: string;
+      phone?: string;
+      address?: string;
+      map_url?: string;
+      is_online_ordering_enabled?: boolean;
+      is_table_reservation_enabled?: boolean;
+      social_links?: { platform: string; url: string }[];
+      operating_hours?: { day: string; hours: string }[];
+    } | null | undefined;
+
+    if (!settings) {
+      return {
+        email: "",
+        phone: "",
+        address: "",
+        mapUrl: "",
+        isOnlineOrderingEnabled: false,
+        isTableReservationEnabled: true,
+        socialLinks: [],
+        operatingHours: [],
+      };
+    }
+
+    return {
+      email: settings.email || "",
+      phone: settings.phone || "",
+      address: settings.address || "",
+      mapUrl: settings.map_url || "",
+      isOnlineOrderingEnabled: settings.is_online_ordering_enabled ?? false,
+      isTableReservationEnabled: settings.is_table_reservation_enabled ?? true,
+      socialLinks: settings.social_links?.map((l) => ({ platform: l.platform, url: l.url })) || [],
+      operatingHours: settings.operating_hours?.map((h) => ({
+        day: h.day,
+        hours: h.hours
+      })) || [],
+    };
+  }, [settingsData]);
 
   let content;
   
@@ -70,28 +114,7 @@ export default function SettingsPage() {
       </div>
     );
   } else {
-    const settings = settingsData as { email?: string, phone?: string, address?: string, map_url?: string, social_links?: { platform: string, url: string }[], operating_hours?: { day: string, hours: string }[] };
-    // Transform backend snake_case to frontend camelCase
-    const initialData = settings ? {
-      email: settings.email,
-      phone: settings.phone,
-      address: settings.address,
-      mapUrl: settings.map_url || "",
-      socialLinks: settings.social_links?.map((l: { platform: string, url: string }) => ({ platform: l.platform, url: l.url })) || [],
-      operatingHours: settings.operating_hours?.map((h: { day: string, hours: string }) => ({
-        day: h.day,
-        hours: h.hours
-      })) || [],
-    } : {
-      email: "",
-      phone: "",
-      address: "",
-      mapUrl: "",
-      socialLinks: [],
-      operatingHours: [],
-    };
-
-    content = <SettingsForm onSubmit={handleSave} initialData={initialData as import('@/lib/schemas').SettingsFormValues} isSaving={mutation.isPending} />;
+    content = <SettingsForm onSubmit={handleSave} initialData={initialData} isSaving={mutation.isPending} />;
   }
 
   return (
@@ -100,7 +123,7 @@ export default function SettingsPage() {
         <div>
           <h2 className="text-3xl font-bold font-playfair tracking-tight text-brand">Settings</h2>
           <p className="text-muted-foreground font-outfit mt-1 text-sm">
-            Manage your restaurant&apos;s global configuration and your account settings.
+            Manage your restaurant&apos;s operational availability, contact information, and account settings.
           </p>
         </div>
         
@@ -109,4 +132,3 @@ export default function SettingsPage() {
     </DashboardLayout>
   );
 }
-

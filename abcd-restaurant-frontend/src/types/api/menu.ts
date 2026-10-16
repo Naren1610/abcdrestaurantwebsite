@@ -1,4 +1,4 @@
-﻿export interface Category {
+export interface Category {
   id: number;
   name: string;
   subtitle: string | null;
@@ -13,6 +13,7 @@ export interface MenuItem {
   image_url: string | null;
   is_veg: boolean;
   is_spicy: boolean;
+  is_signature_dish?: boolean;
   is_active: boolean;
   display_order: number;
   category_id: number;
@@ -28,11 +29,13 @@ export interface ClientMenuItem {
   image: string | null;
   tags: string[];
   isChefPick: boolean;
+  isSignatureDish?: boolean;
 }
 
 export interface ClientMenuCategory {
   id: string;
   title: string;
   subtitle: string | null;
+  letter_group?: string | null;
   items: ClientMenuItem[];
 }

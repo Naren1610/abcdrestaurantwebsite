@@ -29,7 +29,7 @@ export default function BookTable() {
 
           {/* Desktop CTA Button (Visible on lg+) */}
           <div className="hidden lg:block">
-            <CTAButton label="Book Your Table" href="/reserve" />
+            <CTAButton label="Book Your Table" />
           </div>
         </div>
 
@@ -46,9 +46,8 @@ export default function BookTable() {
             {/* Overlay button on top of image at bottom right on small & medium screens */}
             <div className="lg:hidden absolute bottom-3.5 right-3.5 sm:bottom-5 sm:right-5 z-20">
               <CTAButton
-                label="Book Your Table"
-                href="/reserve"
-                className="inline-flex items-center gap-2.5 sm:gap-3 rounded-full bg-brand pl-5 sm:pl-6 pr-1.5 py-1.5 text-[13px] sm:text-[14px] font-semibold font-outfit text-btn-text transition-opacity duration-200 hover:opacity-90 shrink-0"
+                label="Book Your Table" 
+                className="inline-flex items-center gap-2.5 sm:gap-3 rounded-full bg-brand pl-5 sm:pl-6 pr-1.5 py-1.5 text-[13px] sm:text-[14px] font-semibold font-outfit text-btn-text shrink-0"
                 circleClassName="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white"
                 arrowClassName="text-brand"
               />

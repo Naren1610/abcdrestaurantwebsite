@@ -1,4 +1,4 @@
-﻿import { MenuItem } from "@/types/menu";
+import { MenuItem } from "@/types/menu";
 import { Category } from "@/types/category";
 
 export const mockCategories: Category[] = [
